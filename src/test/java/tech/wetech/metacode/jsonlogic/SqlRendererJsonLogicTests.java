@@ -80,12 +80,24 @@ public class SqlRendererJsonLogicTests {
             }
             """;
         NamedSqlRenderResult renderResult = jsonLogic.evaluateNamedSql(json);
-        Map.of("xuesheng_created_by_0",2.0,
-            "xuesheng_created_by_1",3.0,
-            "xuesheng_created_by_2",4.0,
-            "xuesheng_created_by_3",5.0,
-            "xuesheng_created_by_4",6.0).equals(renderResult.args());
-        System.out.println(renderResult);
+        assertEquals(Map.of("xuesheng_created_by_0", 2.0,
+            "xuesheng_created_by_1", 3.0,
+            "xuesheng_created_by_2", 4.0,
+            "xuesheng_created_by_3", 5.0,
+            "xuesheng_created_by_4", 6.0), renderResult.args());
+        assertEquals("xuesheng.created_by in (:xuesheng_created_by_0, :xuesheng_created_by_1, :xuesheng_created_by_2, :xuesheng_created_by_3, :xuesheng_created_by_4) ",
+            renderResult.whereClause()
+        );
+    }
+
+    @Test
+    void testVar() throws JsonLogicException {
+        String json = """
+            { "==": [{ "var": "__flow.status" }, "ACTIVE"] }
+            """;
+        NamedSqlRenderResult renderResult = jsonLogic.evaluateNamedSql(json);
+        assertEquals(Map.of("__flow_status_0", "ACTIVE"), renderResult.args());
+        assertEquals(" __flow.status = :__flow_status_0", renderResult.whereClause());
     }
 
 

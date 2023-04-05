@@ -2,6 +2,7 @@ package tech.wetech.metacode.jsonlogic.evaluator.sql.expressions;
 
 import tech.wetech.metacode.jsonlogic.ast.JsonLogicNode;
 import tech.wetech.metacode.jsonlogic.ast.JsonLogicOperation;
+import tech.wetech.metacode.jsonlogic.ast.JsonLogicVariable;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicExpression;
 import tech.wetech.metacode.jsonlogic.evaluator.sql.PlaceholderHandler;
 
@@ -20,6 +21,7 @@ public interface SqlRenderExpression extends JsonLogicExpression {
 
     default Object handlePlace(PlaceholderHandler placeholderHandler, JsonLogicNode valueNode, Object field, Object value) {
         boolean isTableField = valueNode instanceof JsonLogicOperation operation && operation.getOperator().equals("table_field");
-        return isTableField ? value : placeholderHandler.handle(field.toString(), value);
+        boolean isVariable = valueNode instanceof JsonLogicVariable;
+        return isTableField || isVariable ? value : placeholderHandler.handle(field.toString(), value);
     }
 }
