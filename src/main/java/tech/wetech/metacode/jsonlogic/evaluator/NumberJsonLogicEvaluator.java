@@ -5,7 +5,10 @@ import tech.wetech.metacode.jsonlogic.ast.*;
 import tech.wetech.metacode.jsonlogic.evaluator.expressions.MathExpression;
 import tech.wetech.metacode.jsonlogic.evaluator.expressions.TableFieldExpression;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author cjbi
@@ -26,7 +29,6 @@ public class NumberJsonLogicEvaluator implements JsonLogicEvaluator {
 //        addOperation(MathExpression.MIN);
 //        addOperation(MathExpression.MAX);
         addOperation(TableFieldExpression.INSTANCE);
-        ServiceLoader.load(ExpressionProvider.class).forEach(t -> t.getExpressions(this.getClass()).forEach(this::addOperation));
     }
 
     public Object evaluatePrimitive(JsonLogicPrimitive<?> primitive) {

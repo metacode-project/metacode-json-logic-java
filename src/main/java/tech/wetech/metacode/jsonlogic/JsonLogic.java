@@ -25,6 +25,23 @@ public class JsonLogic {
         evaluators.put(SqlRenderLogicEvaluator.class, new SqlRenderLogicEvaluator());
     }
 
+    public void addBooleanOperation(JsonLogicExpression expression) {
+        evaluators.get(BooleanLogicEvaluator.class).addOperation(expression);
+    }
+
+    public void addNumberOperation(JsonLogicExpression expression) {
+        evaluators.get(NumberJsonLogicEvaluator.class).addOperation(expression);
+    }
+
+    public void addIndexSqlOperation(JsonLogicExpression expression) {
+        evaluators.get(SqlRenderLogicEvaluator.class).addOperation(expression);
+    }
+
+    public void addNamedSqlOperation(JsonLogicExpression expression) {
+        evaluators.get(NamedSqlRenderLogicEvaluator.class).addOperation(expression);
+    }
+
+
     public boolean evaluateBoolean(String json, Object data) throws JsonLogicException {
         return (boolean) evaluators.get(BooleanLogicEvaluator.class).evaluate(JsonLogicParser.parse(json), data);
     }
