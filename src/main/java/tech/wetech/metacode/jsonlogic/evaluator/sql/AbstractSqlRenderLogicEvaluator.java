@@ -4,7 +4,6 @@ import tech.wetech.metacode.jsonlogic.ast.*;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluationException;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluator;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicExpression;
-import tech.wetech.metacode.jsonlogic.evaluator.SqlRuntimeContext;
 import tech.wetech.metacode.jsonlogic.evaluator.expressions.*;
 import tech.wetech.metacode.jsonlogic.evaluator.sql.expressions.ComparisonSqlRenderExpression;
 import tech.wetech.metacode.jsonlogic.evaluator.sql.expressions.ContainsExpression;
@@ -47,12 +46,9 @@ public abstract class AbstractSqlRenderLogicEvaluator implements JsonLogicEvalua
     }
 
     public Object evaluate(JsonLogicPrimitive<?> primitive, Object data) {
-        SqlRuntimeContext runtimeContext = (SqlRuntimeContext) data;
         switch (primitive.getPrimitiveType()) {
             case NUMBER:
                 return ((JsonLogicNumber) primitive).getValue();
-            case STRING:
-                return runtimeContext.quoteIdentifier((String) primitive.getValue());
             default:
                 return primitive.getValue();
         }
