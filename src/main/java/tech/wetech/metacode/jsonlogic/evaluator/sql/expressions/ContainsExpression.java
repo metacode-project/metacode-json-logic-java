@@ -3,6 +3,7 @@ package tech.wetech.metacode.jsonlogic.evaluator.sql.expressions;
 import tech.wetech.metacode.jsonlogic.ast.JsonLogicArray;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluationException;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluator;
+import tech.wetech.metacode.jsonlogic.evaluator.SqlRuntimeContext;
 import tech.wetech.metacode.jsonlogic.evaluator.sql.PlaceholderHandler;
 
 import java.util.List;
@@ -32,6 +33,8 @@ public class ContainsExpression implements SqlRenderExpression {
     @Override
     @SuppressWarnings("unchecked")
     public <T extends JsonLogicEvaluator> Object evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
+        SqlRuntimeContext sqlRuntimeContext = (SqlRuntimeContext) data;
+        PlaceholderHandler placeholderHandler = sqlRuntimeContext.getPlaceholderHandler();
         Object left = evaluator.evaluate(arguments.get(0), data);
         Object right = evaluator.evaluate(arguments.get(1), data);
         if (right instanceof List<?> list) {
@@ -40,15 +43,15 @@ public class ContainsExpression implements SqlRenderExpression {
             }
             if (list.stream().allMatch(i -> i instanceof String || i instanceof Number)) {
                 String s = left + " in" + list.stream()
-                    .map(i -> ((PlaceholderHandler) data).handle(left.toString(), i))
+                    .map(i -> placeholderHandler.handle(left.toString(), i))
                     .collect(Collectors.joining(", ", " (", ") "));
                 return s;
             }
             return list.stream()
-                .map(element -> getSingle((PlaceholderHandler) data, left, right, isTableFieldExpression(arguments.get(1))))
+                .map(element -> getSingle(placeholderHandler, left, right, isTableFieldExpression(arguments.get(1))))
                 .collect(Collectors.joining(" and ", " (", ") "));
         }
-        return getSingle((PlaceholderHandler) data, left, right, isTableFieldExpression(arguments.get(1)));
+        return getSingle(placeholderHandler, left, right, isTableFieldExpression(arguments.get(1)));
     }
 
     public String getSingle(PlaceholderHandler placeholderHandler, Object left, Object right, boolean rightIsTableField) {

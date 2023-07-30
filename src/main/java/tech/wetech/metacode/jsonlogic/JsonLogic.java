@@ -51,11 +51,20 @@ public class JsonLogic {
     }
 
     public NamedSqlRenderResult evaluateNamedSql(String json) throws JsonLogicException {
-        return ((NamedSqlRenderLogicEvaluator) evaluators.get(NamedSqlRenderLogicEvaluator.class)).evaluate(JsonLogicParser.parse(json));
+        return evaluateNamedSql(json, "");
     }
 
+    public NamedSqlRenderResult evaluateNamedSql(String json, String identifierQuoteString) throws JsonLogicException {
+        return ((NamedSqlRenderLogicEvaluator) evaluators.get(NamedSqlRenderLogicEvaluator.class)).evaluate(JsonLogicParser.parse(json), identifierQuoteString);
+    }
+
+
     public IndexSqlRenderResult evaluateIndexSql(String json) throws JsonLogicException {
-        return ((SqlRenderLogicEvaluator) evaluators.get(SqlRenderLogicEvaluator.class)).evaluate(JsonLogicParser.parse(json));
+        return evaluateIndexSql(json, "");
+    }
+
+    public IndexSqlRenderResult evaluateIndexSql(String json, String identifierQuoteString) throws JsonLogicException {
+        return ((SqlRenderLogicEvaluator) evaluators.get(SqlRenderLogicEvaluator.class)).evaluate(JsonLogicParser.parse(json), identifierQuoteString);
     }
 
     public static boolean truthy(Object value) {

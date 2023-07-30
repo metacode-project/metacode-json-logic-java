@@ -15,9 +15,13 @@ public class SqlRenderLogicEvaluator extends AbstractSqlRenderLogicEvaluator {
         super();
     }
 
-    public IndexSqlRenderResult evaluate(JsonLogicNode root) throws JsonLogicEvaluationException {
+    public IndexSqlRenderResult evaluate(JsonLogicNode root, String identifierQuoteString) throws JsonLogicEvaluationException {
+        SqlRuntimeContext sqlRuntimeContext = new SqlRuntimeContext();
+        sqlRuntimeContext.setIdentifierQuoteString(identifierQuoteString);
         IndexPlaceholderHandler placeholderHandler = new IndexPlaceholderHandler();
-        return new IndexSqlRenderResult((String) evaluate((JsonLogicOperation) root, placeholderHandler), placeholderHandler.getParameters());
+        sqlRuntimeContext.setPlaceholderHandler(placeholderHandler);
+
+        return new IndexSqlRenderResult((String) evaluate((JsonLogicOperation) root, sqlRuntimeContext), placeholderHandler.getParameters());
     }
 
     @Override

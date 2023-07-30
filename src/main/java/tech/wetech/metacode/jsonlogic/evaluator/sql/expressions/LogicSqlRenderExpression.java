@@ -4,7 +4,7 @@ import tech.wetech.metacode.jsonlogic.ast.JsonLogicArray;
 import tech.wetech.metacode.jsonlogic.ast.JsonLogicNode;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluationException;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluator;
-import tech.wetech.metacode.jsonlogic.evaluator.sql.PlaceholderHandler;
+import tech.wetech.metacode.jsonlogic.evaluator.SqlRuntimeContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +32,13 @@ public class LogicSqlRenderExpression implements SqlRenderExpression {
 
     @Override
     public <T extends JsonLogicEvaluator> String evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
-        PlaceholderHandler placeholderHandler = (PlaceholderHandler) data;
+        SqlRuntimeContext sqlRuntimeContext = (SqlRuntimeContext) data;
         if (arguments.size() < 1) {
             throw new JsonLogicEvaluationException("and operator expects at least 1 argument");
         }
         List<String> list = new ArrayList<>();
         for (JsonLogicNode element : arguments) {
-            list.add((String) evaluator.evaluate(element, placeholderHandler));
+            list.add((String) evaluator.evaluate(element, sqlRuntimeContext));
         }
         String whereClause = list.stream()
             .collect(Collectors.joining(" " + key() + " ", " (", " )"));

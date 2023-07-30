@@ -13,7 +13,9 @@ public class NamedPlaceholderHandler implements PlaceholderHandler {
 
     @Override
     public String handle(String field, Object value) {
-        String key = field.replace(".", "_") + "_" + placeholderIndex++;
+        String key = field.replace(".", "_")
+            .replaceAll("[\"'`]", "")
+            + "_" + placeholderIndex++;
         parameters.put(key, value);
         return ":" + key;
     }

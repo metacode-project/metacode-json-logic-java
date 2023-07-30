@@ -15,9 +15,12 @@ public class NamedSqlRenderLogicEvaluator extends AbstractSqlRenderLogicEvaluato
         super();
     }
 
-    public NamedSqlRenderResult evaluate(JsonLogicNode root) throws JsonLogicEvaluationException {
+    public NamedSqlRenderResult evaluate(JsonLogicNode root, String identifierQuoteString) throws JsonLogicEvaluationException {
         NamedPlaceholderHandler placeholderHandler = new NamedPlaceholderHandler();
-        Object sql = evaluate((JsonLogicOperation) root, placeholderHandler);
+        SqlRuntimeContext runtimeContext = new SqlRuntimeContext();
+        runtimeContext.setPlaceholderHandler(placeholderHandler);
+        runtimeContext.setIdentifierQuoteString(identifierQuoteString);
+        Object sql = evaluate((JsonLogicOperation) root, runtimeContext);
         return new NamedSqlRenderResult((String) sql, placeholderHandler.getParameters());
     }
 

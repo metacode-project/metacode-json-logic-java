@@ -3,6 +3,7 @@ package tech.wetech.metacode.jsonlogic.evaluator.sql.expressions;
 import tech.wetech.metacode.jsonlogic.ast.JsonLogicArray;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluationException;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluator;
+import tech.wetech.metacode.jsonlogic.evaluator.SqlRuntimeContext;
 import tech.wetech.metacode.jsonlogic.evaluator.sql.PlaceholderHandler;
 
 import java.util.HashMap;
@@ -40,7 +41,8 @@ public class ComparisonSqlRenderExpression implements SqlRenderExpression {
 
     @Override
     public <T extends JsonLogicEvaluator> String evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
-        PlaceholderHandler placeholderHandler = (PlaceholderHandler) data;
+        SqlRuntimeContext sqlRuntimeContext = (SqlRuntimeContext) data;
+        PlaceholderHandler placeholderHandler = sqlRuntimeContext.getPlaceholderHandler();
         Object left = evaluator.evaluate(arguments.get(0), data);
         Object right = evaluator.evaluate(arguments.get(1), data);
 
