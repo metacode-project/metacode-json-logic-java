@@ -5,19 +5,19 @@ package tech.wetech.metacode.jsonlogic.ast;
  * @date 2022/9/4
  */
 public class JsonLogicString implements JsonLogicPrimitive<String> {
-    private final String value;
+  private final String value;
 
-    public JsonLogicString(String value) {
-        this.value = value;
-    }
+  public JsonLogicString(String value) {
+    this.value = value;
+  }
 
-    @Override
-    public String getValue() {
-        return value;
-    }
+  @Override
+  public String getValue() {
+    return value;
+  }
 
-    @Override
-    public JsonLogicPrimitiveType getPrimitiveType() {
-        return JsonLogicPrimitiveType.STRING;
-    }
+  @Override
+  public JsonLogicPrimitiveType getPrimitiveType() {
+    return JsonLogicPrimitiveType.STRING;
+  }
 }

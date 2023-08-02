@@ -11,15 +11,15 @@ import tech.wetech.metacode.jsonlogic.evaluator.sql.expressions.SqlRenderExpress
  */
 public class RadioExpression implements SqlRenderExpression {
 
-    public static final RadioExpression INSTANCE = new RadioExpression();
+  public static final RadioExpression INSTANCE = new RadioExpression();
 
-    @Override
-    public String key() {
-        return "radio";
-    }
+  @Override
+  public String key() {
+    return "radio";
+  }
 
-    @Override
-    public <T extends JsonLogicEvaluator> Object evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
-        return evaluator.evaluate(arguments.get(0), data);
-    }
+  @Override
+  public <T extends JsonLogicEvaluator> Object evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
+    return evaluator.evaluate(arguments.get(0), data);
+  }
 }

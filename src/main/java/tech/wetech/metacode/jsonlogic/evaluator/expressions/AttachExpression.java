@@ -11,16 +11,16 @@ import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicExpression;
  */
 public class AttachExpression implements JsonLogicExpression {
 
-    public static final AttachExpression INSTANCE = new AttachExpression();
+  public static final AttachExpression INSTANCE = new AttachExpression();
 
-    @Override
-    public String key() {
-        return "attach";
-    }
+  @Override
+  public String key() {
+    return "attach";
+  }
 
-    @Override
-    public <T extends JsonLogicEvaluator> Object evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
-        return evaluator.evaluate(arguments, data);
-    }
+  @Override
+  public <T extends JsonLogicEvaluator> Object evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
+    return evaluator.evaluate(arguments, data);
+  }
 
 }

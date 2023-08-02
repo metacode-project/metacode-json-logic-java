@@ -5,9 +5,9 @@ package tech.wetech.metacode.jsonlogic.ast;
  * @date 2022/9/4
  */
 public enum JsonLogicNodeType {
-    PRIMITIVE,
-    VARIABLE,
-    ARRAY,
-    OPERATION,
-    CURRENT_DATETIME,
+  PRIMITIVE,
+  VARIABLE,
+  ARRAY,
+  OPERATION,
+  CURRENT_DATETIME,
 }

@@ -11,15 +11,15 @@ import tech.wetech.metacode.jsonlogic.evaluator.sql.expressions.SqlRenderExpress
  */
 public class IdentifierExpression implements SqlRenderExpression {
 
-    public static final IdentifierExpression INSTANCE = new IdentifierExpression();
+  public static final IdentifierExpression INSTANCE = new IdentifierExpression();
 
-    @Override
-    public String key() {
-        return "identifier";
-    }
+  @Override
+  public String key() {
+    return "identifier";
+  }
 
-    @Override
-    public <T extends JsonLogicEvaluator> Object evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
-        return evaluator.evaluate(arguments.get(0), data);
-    }
+  @Override
+  public <T extends JsonLogicEvaluator> Object evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
+    return evaluator.evaluate(arguments.get(0), data);
+  }
 }

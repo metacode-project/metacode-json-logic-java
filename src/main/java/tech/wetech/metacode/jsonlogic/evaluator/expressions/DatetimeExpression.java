@@ -13,16 +13,16 @@ import java.time.LocalDateTime;
  */
 public class DatetimeExpression implements SqlRenderExpression {
 
-    public static final DatetimeExpression INSTANCE = new DatetimeExpression();
+  public static final DatetimeExpression INSTANCE = new DatetimeExpression();
 
-    @Override
-    public String key() {
-        return "datetime";
-    }
+  @Override
+  public String key() {
+    return "datetime";
+  }
 
-    @Override
-    public <T extends JsonLogicEvaluator> Object evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
-        String datetimeString = (String) evaluator.evaluate(arguments.get(0), data);
-        return LocalDateTime.parse(datetimeString);
-    }
+  @Override
+  public <T extends JsonLogicEvaluator> Object evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
+    String datetimeString = (String) evaluator.evaluate(arguments.get(0), data);
+    return LocalDateTime.parse(datetimeString);
+  }
 }

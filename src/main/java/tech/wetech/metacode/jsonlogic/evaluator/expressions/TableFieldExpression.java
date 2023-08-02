@@ -14,17 +14,17 @@ import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicExpression;
  */
 public class TableFieldExpression implements JsonLogicExpression {
 
-    public static final TableFieldExpression INSTANCE = new TableFieldExpression();
+  public static final TableFieldExpression INSTANCE = new TableFieldExpression();
 
-    @Override
-    public String key() {
-        return "table_field";
-    }
+  @Override
+  public String key() {
+    return "table_field";
+  }
 
-    @Override
-    public <T extends JsonLogicEvaluator> Object evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
-        Object table = evaluator.evaluate(arguments.get(0), data);
-        Object field = evaluator.evaluate(arguments.get(1), data);
-        return evaluator.evaluate(new JsonLogicVariable(new JsonLogicString(table + "." + field), JsonLogicNull.NULL), data);
-    }
+  @Override
+  public <T extends JsonLogicEvaluator> Object evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
+    Object table = evaluator.evaluate(arguments.get(0), data);
+    Object field = evaluator.evaluate(arguments.get(1), data);
+    return evaluator.evaluate(new JsonLogicVariable(new JsonLogicString(table + "." + field), JsonLogicNull.NULL), data);
+  }
 }

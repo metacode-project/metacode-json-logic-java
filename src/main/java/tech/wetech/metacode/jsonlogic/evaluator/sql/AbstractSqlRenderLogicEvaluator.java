@@ -19,57 +19,57 @@ import java.util.List;
  */
 public abstract class AbstractSqlRenderLogicEvaluator implements JsonLogicEvaluator {
 
-    protected final List<JsonLogicExpression> expressions = new ArrayList<>();
+  protected final List<JsonLogicExpression> expressions = new ArrayList<>();
 
-    protected AbstractSqlRenderLogicEvaluator() {
+  protected AbstractSqlRenderLogicEvaluator() {
 
-        addOperation(LogicSqlRenderExpression.AND);
-        addOperation(LogicSqlRenderExpression.OR);
+    addOperation(LogicSqlRenderExpression.AND);
+    addOperation(LogicSqlRenderExpression.OR);
 
-        addOperation(ComparisonSqlRenderExpression.EQ);
-        addOperation(ComparisonSqlRenderExpression.NE);
-        addOperation(ComparisonSqlRenderExpression.GT);
-        addOperation(ComparisonSqlRenderExpression.GTE);
-        addOperation(ComparisonSqlRenderExpression.LT);
-        addOperation(ComparisonSqlRenderExpression.LTE);
+    addOperation(ComparisonSqlRenderExpression.EQ);
+    addOperation(ComparisonSqlRenderExpression.NE);
+    addOperation(ComparisonSqlRenderExpression.GT);
+    addOperation(ComparisonSqlRenderExpression.GTE);
+    addOperation(ComparisonSqlRenderExpression.LT);
+    addOperation(ComparisonSqlRenderExpression.LTE);
 
-        addOperation(ContainsExpression.CONTAINS);
-        addOperation(ContainsExpression.NOT_CONTAINS);
+    addOperation(ContainsExpression.CONTAINS);
+    addOperation(ContainsExpression.NOT_CONTAINS);
 
-        addOperation(TableFieldExpression.INSTANCE);
+    addOperation(TableFieldExpression.INSTANCE);
 
-        addOperation(RadioExpression.INSTANCE);
-        addOperation(DatetimeExpression.INSTANCE);
-        addOperation(MultipleExpression.INSTANCE);
-        addOperation(AttachExpression.INSTANCE);
-        addOperation(IdentifierExpression.INSTANCE);
+    addOperation(RadioExpression.INSTANCE);
+    addOperation(DatetimeExpression.INSTANCE);
+    addOperation(MultipleExpression.INSTANCE);
+    addOperation(AttachExpression.INSTANCE);
+    addOperation(IdentifierExpression.INSTANCE);
+  }
+
+  public Object evaluate(JsonLogicPrimitive<?> primitive, Object data) {
+    switch (primitive.getPrimitiveType()) {
+      case NUMBER:
+        return ((JsonLogicNumber) primitive).getValue();
+      default:
+        return primitive.getValue();
     }
+  }
 
-    public Object evaluate(JsonLogicPrimitive<?> primitive, Object data) {
-        switch (primitive.getPrimitiveType()) {
-            case NUMBER:
-                return ((JsonLogicNumber) primitive).getValue();
-            default:
-                return primitive.getValue();
-        }
+  public Object evaluate(JsonLogicVariable variable, Object data) {
+    return evaluate((JsonLogicPrimitive) variable.getKey(), data);
+  }
+
+  public List<Object> evaluate(JsonLogicArray array, Object data) throws JsonLogicEvaluationException {
+    List<Object> values = new ArrayList<>(array.size());
+
+    for (JsonLogicNode element : array) {
+      values.add(evaluate(element, data));
     }
+    return values;
+  }
 
-    public Object evaluate(JsonLogicVariable variable, Object data) {
-        return evaluate((JsonLogicPrimitive) variable.getKey(), data);
-    }
-
-    public List<Object> evaluate(JsonLogicArray array, Object data) throws JsonLogicEvaluationException {
-        List<Object> values = new ArrayList<>(array.size());
-
-        for (JsonLogicNode element : array) {
-            values.add(evaluate(element, data));
-        }
-        return values;
-    }
-
-    @Override
-    public List<JsonLogicExpression> getExpressions() {
-        return expressions;
-    }
+  @Override
+  public List<JsonLogicExpression> getExpressions() {
+    return expressions;
+  }
 
 }

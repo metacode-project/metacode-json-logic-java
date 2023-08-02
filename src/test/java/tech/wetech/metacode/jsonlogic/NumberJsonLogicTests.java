@@ -13,91 +13,91 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  */
 public class NumberJsonLogicTests {
 
-    private static final JsonLogic jsonLogic = new JsonLogic();
+  private static final JsonLogic jsonLogic = new JsonLogic();
 
-    @Test
-    void testAdd() throws JsonLogicException {
-        String json = """
-                {"+":[4,2]}
-            """;
-        //4+2=6
-        Number result = jsonLogic.evaluateNumber(json, null);
-        assertEquals(6.0, result);
-    }
+  @Test
+  void testAdd() throws JsonLogicException {
+    String json = """
+          {"+":[4,2]}
+      """;
+    //4+2=6
+    Number result = jsonLogic.evaluateNumber(json, null);
+    assertEquals(6.0, result);
+  }
 
-    @Test
-    void testMultiAdd() throws JsonLogicException {
-        String json = """
-                {"+":[2,2,2,2,2]}
-            """;
-        //2+2+2+2+2=10
-        Number result = jsonLogic.evaluateNumber(json, null);
-        assertEquals(10.0, result);
-    }
+  @Test
+  void testMultiAdd() throws JsonLogicException {
+    String json = """
+          {"+":[2,2,2,2,2]}
+      """;
+    //2+2+2+2+2=10
+    Number result = jsonLogic.evaluateNumber(json, null);
+    assertEquals(10.0, result);
+  }
 
-    @Test
-    void testSingleAdd() throws JsonLogicException {
-        String json = "{\"+\":[2,2,2,2,2]}";
-        Number result = jsonLogic.evaluateNumber(json, null);
-        assertEquals(10.0, result);
-    }
+  @Test
+  void testSingleAdd() throws JsonLogicException {
+    String json = "{\"+\":[2,2,2,2,2]}";
+    Number result = jsonLogic.evaluateNumber(json, null);
+    assertEquals(10.0, result);
+  }
 
 
-    @Test
-    void testSubtract() throws JsonLogicException {
-        String json = "{\"-\":[4,2]}";
-        Number result = jsonLogic.evaluateNumber(json, null);
+  @Test
+  void testSubtract() throws JsonLogicException {
+    String json = "{\"-\":[4,2]}";
+    Number result = jsonLogic.evaluateNumber(json, null);
 
-        assertEquals(2.0, result);
-    }
+    assertEquals(2.0, result);
+  }
 
-    @Test
-    void testSingleSubtract() throws JsonLogicException {
-        String json = "{\"-\": 2 }";
-        Number result = jsonLogic.evaluateNumber(json, null);
+  @Test
+  void testSingleSubtract() throws JsonLogicException {
+    String json = "{\"-\": 2 }";
+    Number result = jsonLogic.evaluateNumber(json, null);
 
-        assertEquals(-2.0, result);
-    }
+    assertEquals(-2.0, result);
+  }
 
-    @Test
-    void testMultiply() throws JsonLogicException {
-        String json = "{\"*\":[4,2]}";
-        Number result = jsonLogic.evaluateNumber(json, null);
+  @Test
+  void testMultiply() throws JsonLogicException {
+    String json = "{\"*\":[4,2]}";
+    Number result = jsonLogic.evaluateNumber(json, null);
 
-        assertEquals(8.0, result);
-    }
+    assertEquals(8.0, result);
+  }
 
-    @Test
-    void testMultiMultiply() throws JsonLogicException {
-        String json = "{\"*\":[2,2,2,2,2]}";
-        Number result = jsonLogic.evaluateNumber(json, null);
+  @Test
+  void testMultiMultiply() throws JsonLogicException {
+    String json = "{\"*\":[2,2,2,2,2]}";
+    Number result = jsonLogic.evaluateNumber(json, null);
 
-        assertEquals(32.0, result);
-    }
+    assertEquals(32.0, result);
+  }
 
-    @Test
-    void testDivide() throws JsonLogicException {
-        String json = "{\"/\":[4,2]}";
-        Number result = jsonLogic.evaluateNumber(json, null);
+  @Test
+  void testDivide() throws JsonLogicException {
+    String json = "{\"/\":[4,2]}";
+    Number result = jsonLogic.evaluateNumber(json, null);
 
-        assertEquals(2.0, result);
-    }
+    assertEquals(2.0, result);
+  }
 
-    @Test
-    void testDivideBy0() throws JsonLogicException {
-        String json = "{\"/\":[4,0]}";
-        Number result = jsonLogic.evaluateNumber(json, null);
+  @Test
+  void testDivideBy0() throws JsonLogicException {
+    String json = "{\"/\":[4,0]}";
+    Number result = jsonLogic.evaluateNumber(json, null);
 
-        assertEquals(Double.POSITIVE_INFINITY, result);
-    }
+    assertEquals(Double.POSITIVE_INFINITY, result);
+  }
 
-    @Test
-    void testModulo() throws JsonLogicException {
-        String json = "{\"%\": [101,2]}";
-        Number result = jsonLogic.evaluateNumber(json, null);
+  @Test
+  void testModulo() throws JsonLogicException {
+    String json = "{\"%\": [101,2]}";
+    Number result = jsonLogic.evaluateNumber(json, null);
 
-        assertEquals(1.0, result);
-    }
+    assertEquals(1.0, result);
+  }
 
 //    @Test
 //    void testMin() throws JsonLogicException {
@@ -115,20 +115,20 @@ public class NumberJsonLogicTests {
 //        assertEquals(3.0, result);
 //    }
 
-    @Test
-    void testDivideSingleNumber() throws JsonLogicException {
-        assertNull(jsonLogic.evaluateNumber("{\"/\": [0]}", null));
-    }
+  @Test
+  void testDivideSingleNumber() throws JsonLogicException {
+    assertNull(jsonLogic.evaluateNumber("{\"/\": [0]}", null));
+  }
 
-    @Test
-    void testVar() throws JsonLogicException {
-        String json = """
-            {"+":[2,{"var":"a"},{"var":"b"}]}
-            """;
-        Map<String, String> data = Map.of("a", "5", "b", "3");
-        Number result = jsonLogic.evaluateNumber(json, data);
-        assertEquals(10.0, result);
-    }
+  @Test
+  void testVar() throws JsonLogicException {
+    String json = """
+      {"+":[2,{"var":"a"},{"var":"b"}]}
+      """;
+    Map<String, String> data = Map.of("a", "5", "b", "3");
+    Number result = jsonLogic.evaluateNumber(json, data);
+    assertEquals(10.0, result);
+  }
 
 
 }
