@@ -11,38 +11,23 @@ import java.util.Optional;
 
 /**
  * @author cjbi
- * @date 2022/9/4
  */
-public class BooleanLogicEvaluator implements JsonLogicEvaluator {
+public class PrimitiveTypeJsonLogicEvaluator implements JsonLogicEvaluator {
 
-  private final List<JsonLogicExpression> expressions = new ArrayList<>();
+  protected final List<JsonLogicExpression> expressions = new ArrayList<>();
 
-  public BooleanLogicEvaluator() {
-
-    addOperation(LogicExpression.AND);
-    addOperation(LogicExpression.OR);
-
-    addOperation(EqualityExpression.INSTANCE);
-    addOperation(InequalityExpression.INSTANCE);
-
-    addOperation(ComparisonExpression.GT);
-    addOperation(ComparisonExpression.GTE);
-    addOperation(ComparisonExpression.LT);
-    addOperation(ComparisonExpression.LTE);
-
+  public PrimitiveTypeJsonLogicEvaluator() {
     addOperation(TableFieldExpression.INSTANCE);
-
-    addOperation(ContainsExpression.CONTAINS);
-    addOperation(ContainsExpression.NOT_CONTAINS);
 
     addOperation(RadioExpression.INSTANCE);
     addOperation(DatetimeExpression.INSTANCE);
     addOperation(MultipleExpression.INSTANCE);
     addOperation(AttachExpression.INSTANCE);
     addOperation(IdentifierExpression.INSTANCE);
+    addOperation(CurrentDatetimeExpression.INSTANCE);
   }
 
-  public static Object transform(Object value) {
+  protected static Object transform(Object value) {
     if (value instanceof Number) {
       return ((Number) value).doubleValue();
     }
@@ -57,17 +42,7 @@ public class BooleanLogicEvaluator implements JsonLogicEvaluator {
     return value;
   }
 
-  @Override
-  public List<JsonLogicExpression> getExpressions() {
-    return expressions;
-  }
-
-  public Object evaluate(JsonLogicOperation operation, Object data) throws JsonLogicEvaluationException {
-    JsonLogicExpression expression = getExpression(operation.getOperator());
-    return expression.evaluate(this, operation.getArguments(), data);
-  }
-
-  public Object evaluatePrimitive(JsonLogicPrimitive<?> primitive) {
+  public Object evaluate(JsonLogicPrimitive<?> primitive) {
     switch (primitive.getPrimitiveType()) {
       case NUMBER:
         return ((JsonLogicNumber) primitive).getValue();
@@ -76,9 +51,6 @@ public class BooleanLogicEvaluator implements JsonLogicEvaluator {
     }
   }
 
-  public Object evaluate(JsonLogicCurrentDatetime currentDatetime) {
-    return currentDatetime.now();
-  }
 
   public Object evaluate(JsonLogicVariable variable, Object data) throws JsonLogicEvaluationException {
     Object defaultValue = evaluate(variable.getDefaultValue(), null);
@@ -91,7 +63,7 @@ public class BooleanLogicEvaluator implements JsonLogicEvaluator {
 
     if (key == null) {
       return Optional.of(data)
-        .map(BooleanLogicEvaluator::transform)
+        .map(PrimitiveTypeJsonLogicEvaluator::transform)
         .orElse(evaluate(variable.getDefaultValue(), null));
     }
 
@@ -169,19 +141,27 @@ public class BooleanLogicEvaluator implements JsonLogicEvaluator {
   }
 
   @Override
+  public Object evaluate(JsonLogicOperation operation, Object data) throws JsonLogicEvaluationException {
+    JsonLogicExpression expression = getExpression(operation.getOperator());
+    return expression.evaluate(this, operation.getArguments(), data);
+  }
+
+  @Override
   public Object evaluate(JsonLogicNode node, Object data) throws JsonLogicEvaluationException {
     switch (node.getType()) {
       case PRIMITIVE:
-        return evaluatePrimitive((JsonLogicPrimitive) node);
+        return evaluate((JsonLogicPrimitive) node);
       case VARIABLE:
         return evaluate((JsonLogicVariable) node, data);
       case ARRAY:
         return evaluate((JsonLogicArray) node, data);
-      case CURRENT_DATETIME:
-        return evaluate((JsonLogicCurrentDatetime) node);
       default:
         return evaluate((JsonLogicOperation) node, data);
     }
   }
 
+  @Override
+  public List<JsonLogicExpression> getExpressions() {
+    return expressions;
+  }
 }

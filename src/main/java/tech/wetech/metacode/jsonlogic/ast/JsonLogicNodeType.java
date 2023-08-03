@@ -9,5 +9,4 @@ public enum JsonLogicNodeType {
   VARIABLE,
   ARRAY,
   OPERATION,
-  CURRENT_DATETIME,
 }

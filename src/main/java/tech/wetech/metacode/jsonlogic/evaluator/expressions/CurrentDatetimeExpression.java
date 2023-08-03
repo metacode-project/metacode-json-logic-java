@@ -5,21 +5,22 @@ import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluationException;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluator;
 import tech.wetech.metacode.jsonlogic.evaluator.sql.expressions.SqlExpression;
 
+import java.time.LocalDateTime;
+
 /**
  * @author cjbi
- * @date 2022/11/7
  */
-public class IdentifierExpression implements SqlExpression {
+public class CurrentDatetimeExpression implements SqlExpression {
 
-  public static final IdentifierExpression INSTANCE = new IdentifierExpression();
+  public static final CurrentDatetimeExpression INSTANCE = new CurrentDatetimeExpression();
 
   @Override
   public String key() {
-    return "identifier";
+    return "current_datetime";
   }
 
   @Override
   public <T extends JsonLogicEvaluator> Object evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
-    return evaluator.evaluate(arguments.get(0), data);
+    return LocalDateTime.now();
   }
 }

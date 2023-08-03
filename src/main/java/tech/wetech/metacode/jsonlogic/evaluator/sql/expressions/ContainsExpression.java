@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * @author cjbi
  * @date 2022/11/6
  */
-public class ContainsExpression implements SqlRenderExpression {
+public class ContainsExpression implements SqlExpression {
 
   public static final ContainsExpression CONTAINS = new ContainsExpression(false);
 

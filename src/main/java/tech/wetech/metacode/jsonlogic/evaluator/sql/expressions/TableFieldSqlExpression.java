@@ -9,9 +9,9 @@ import tech.wetech.metacode.jsonlogic.evaluator.sql.SqlRuntimeContext;
  * @author cjbi
  * @date 2022/11/7
  */
-public class TableFieldExpression implements SqlRenderExpression {
+public class TableFieldSqlExpression implements SqlExpression {
 
-  public static final TableFieldExpression INSTANCE = new TableFieldExpression();
+  public static final TableFieldSqlExpression INSTANCE = new TableFieldSqlExpression();
 
   @Override
   public String key() {
@@ -23,6 +23,6 @@ public class TableFieldExpression implements SqlRenderExpression {
     SqlRuntimeContext sqlRuntimeContext = (SqlRuntimeContext) data;
     String table = sqlRuntimeContext.quoteIdentifier((String) evaluator.evaluate(arguments.get(0), data));
     String field = sqlRuntimeContext.quoteIdentifier((String) evaluator.evaluate(arguments.get(1), data));
-    return table + "." + field;
+    return new SqlIdentifier(table + "." + field);
   }
 }

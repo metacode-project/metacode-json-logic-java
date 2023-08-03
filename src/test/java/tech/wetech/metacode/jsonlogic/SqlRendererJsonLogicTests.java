@@ -100,5 +100,14 @@ public class SqlRendererJsonLogicTests {
     assertEquals(" __flow.status = :__flow_status_0", renderResult.whereClause());
   }
 
+  @Test
+  void testCurrentDatetime() throws JsonLogicException {
+    String expression = """
+      { "<=": [{ "table_field": ["user","birthday"] }, {"current_datetime": []}] }
+      """;
+    assertEquals(" user.birthday <= now()",
+      jsonLogic.evaluateNamedSql(expression).whereClause()
+    );
+  }
 
 }

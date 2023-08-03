@@ -12,7 +12,7 @@ public class IndexPlaceholderHandler implements PlaceholderHandler {
   private final List<Object> parameters = new ArrayList<>();
 
   @Override
-  public String handle(String field, Object value) {
+  public String handle(String key, Object value) {
     parameters.add(value);
     return "?";
   }

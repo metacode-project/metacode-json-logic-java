@@ -85,10 +85,6 @@ public class JsonLogicParser {
       JsonLogicNode defaultValue = arguments.size() > 1 ? arguments.get(1) : JsonLogicNull.NULL;
       return new JsonLogicVariable(arguments.size() < 1 ? JsonLogicNull.NULL : arguments.get(0), defaultValue);
     }
-    if ("current_datetime".equals(key)) {
-      return new JsonLogicCurrentDatetime();
-    }
-
     return new JsonLogicOperation(key, arguments);
   }
 

@@ -19,7 +19,7 @@ public interface PreEvaluatedArgumentsExpression extends JsonLogicExpression {
 
   default Object evaluate(JsonLogicEvaluator evaluator, JsonLogicArray arguments, Object data)
     throws JsonLogicEvaluationException {
-    return evaluate((List) evaluator.evaluate(arguments, data), data);
+    return evaluate(evaluator.evaluate(arguments, data), data);
   }
 
 }

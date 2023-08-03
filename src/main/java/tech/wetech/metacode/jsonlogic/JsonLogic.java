@@ -1,10 +1,7 @@
 package tech.wetech.metacode.jsonlogic;
 
 import tech.wetech.metacode.jsonlogic.ast.JsonLogicParser;
-import tech.wetech.metacode.jsonlogic.evaluator.BooleanLogicEvaluator;
-import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluator;
-import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicExpression;
-import tech.wetech.metacode.jsonlogic.evaluator.NumberJsonLogicEvaluator;
+import tech.wetech.metacode.jsonlogic.evaluator.*;
 import tech.wetech.metacode.jsonlogic.evaluator.sql.IndexSqlRenderResult;
 import tech.wetech.metacode.jsonlogic.evaluator.sql.NamedSqlRenderLogicEvaluator;
 import tech.wetech.metacode.jsonlogic.evaluator.sql.NamedSqlRenderResult;
@@ -24,7 +21,8 @@ public class JsonLogic {
   private final Map<Class<? extends JsonLogicEvaluator>, JsonLogicEvaluator> evaluators = new HashMap<>();
 
   public JsonLogic() {
-    evaluators.put(BooleanLogicEvaluator.class, new BooleanLogicEvaluator());
+    evaluators.put(StringLogicEvaluator.class, new StringLogicEvaluator());
+    evaluators.put(BooleanJsonLogicEvaluator.class, new BooleanJsonLogicEvaluator());
     evaluators.put(NumberJsonLogicEvaluator.class, new NumberJsonLogicEvaluator());
     evaluators.put(NamedSqlRenderLogicEvaluator.class, new NamedSqlRenderLogicEvaluator());
     evaluators.put(SqlRenderLogicEvaluator.class, new SqlRenderLogicEvaluator());
@@ -83,7 +81,7 @@ public class JsonLogic {
   }
 
   public void addBooleanOperation(JsonLogicExpression expression) {
-    evaluators.get(BooleanLogicEvaluator.class).addOperation(expression);
+    evaluators.get(BooleanJsonLogicEvaluator.class).addOperation(expression);
   }
 
   public void addNumberOperation(JsonLogicExpression expression) {
@@ -99,11 +97,15 @@ public class JsonLogic {
   }
 
   public boolean evaluateBoolean(String json, Object data) throws JsonLogicException {
-    return (boolean) evaluators.get(BooleanLogicEvaluator.class).evaluate(JsonLogicParser.parse(json), data);
+    return (boolean) evaluators.get(BooleanJsonLogicEvaluator.class).evaluate(JsonLogicParser.parse(json), data);
   }
 
   public Number evaluateNumber(String json, Object data) throws JsonLogicException {
     return (Number) evaluators.get(NumberJsonLogicEvaluator.class).evaluate(JsonLogicParser.parse(json), data);
+  }
+
+  public String evaluateString(String json, Object data) throws JsonLogicException {
+    return (String) evaluators.get(StringLogicEvaluator.class).evaluate(JsonLogicParser.parse(json), data);
   }
 
   public NamedSqlRenderResult evaluateNamedSql(String json) throws JsonLogicException {

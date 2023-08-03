@@ -1,6 +1,8 @@
 package tech.wetech.metacode.jsonlogic.evaluator;
 
+import tech.wetech.metacode.jsonlogic.ast.JsonLogicArray;
 import tech.wetech.metacode.jsonlogic.ast.JsonLogicNode;
+import tech.wetech.metacode.jsonlogic.ast.JsonLogicOperation;
 
 import java.util.List;
 
@@ -9,6 +11,10 @@ import java.util.List;
  * @date 2022/9/4
  */
 public interface JsonLogicEvaluator {
+
+  Object evaluate(JsonLogicOperation operation, Object data) throws JsonLogicEvaluationException;
+
+  List<?> evaluate(JsonLogicArray array, Object data) throws JsonLogicEvaluationException;
 
   Object evaluate(JsonLogicNode node, Object data) throws JsonLogicEvaluationException;
 

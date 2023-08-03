@@ -1,8 +1,8 @@
 package tech.wetech.metacode.jsonlogic.evaluator.sql;
 
-import tech.wetech.metacode.jsonlogic.ast.*;
+import tech.wetech.metacode.jsonlogic.ast.JsonLogicNode;
+import tech.wetech.metacode.jsonlogic.ast.JsonLogicOperation;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluationException;
-import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicExpression;
 
 /**
  * @author cjbi
@@ -14,6 +14,7 @@ public class NamedSqlRenderLogicEvaluator extends AbstractSqlRenderLogicEvaluato
     super();
   }
 
+  @Override
   public NamedSqlRenderResult evaluate(JsonLogicNode root, String identifierQuoteString) throws JsonLogicEvaluationException {
     NamedPlaceholderHandler placeholderHandler = new NamedPlaceholderHandler();
     SqlRuntimeContext runtimeContext = new SqlRuntimeContext();
@@ -23,23 +24,6 @@ public class NamedSqlRenderLogicEvaluator extends AbstractSqlRenderLogicEvaluato
     return new NamedSqlRenderResult((String) sql, placeholderHandler.getParameters());
   }
 
-  @Override
-  public Object evaluate(JsonLogicNode node, Object data) throws JsonLogicEvaluationException {
-    switch (node.getType()) {
-      case PRIMITIVE:
-        return evaluate((JsonLogicPrimitive) node, data);
-      case VARIABLE:
-        return evaluate((JsonLogicVariable) node, data);
-      case ARRAY:
-        return evaluate((JsonLogicArray) node, data);
-      default:
-        return evaluate((JsonLogicOperation) node, data);
-    }
-  }
 
-  public Object evaluate(JsonLogicOperation operation, Object data) throws JsonLogicEvaluationException {
-    JsonLogicExpression expression = getExpression(operation.getOperator());
-    return expression.evaluate(this, operation.getArguments(), data);
-  }
 
 }

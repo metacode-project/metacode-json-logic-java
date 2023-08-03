@@ -13,7 +13,7 @@ import java.util.Map;
  * @author cjbi
  * @date 2022/9/5
  */
-public class ComparisonSqlRenderExpression implements SqlRenderExpression {
+public class ComparisonSqlRenderExpression implements SqlExpression {
 
 
   public static final ComparisonSqlRenderExpression EQ = new ComparisonSqlRenderExpression("==");
