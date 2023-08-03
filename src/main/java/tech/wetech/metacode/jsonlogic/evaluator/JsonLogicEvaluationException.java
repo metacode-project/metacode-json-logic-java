@@ -8,15 +8,15 @@ import tech.wetech.metacode.jsonlogic.JsonLogicException;
  */
 public class JsonLogicEvaluationException extends JsonLogicException {
 
-    public JsonLogicEvaluationException(String message) {
-        super(message);
-    }
+  public JsonLogicEvaluationException(String message) {
+    super(message);
+  }
 
-    public JsonLogicEvaluationException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  public JsonLogicEvaluationException(String message, Throwable cause) {
+    super(message, cause);
+  }
 
-    public JsonLogicEvaluationException(Throwable cause) {
-        super(cause);
-    }
+  public JsonLogicEvaluationException(Throwable cause) {
+    super(cause);
+  }
 }

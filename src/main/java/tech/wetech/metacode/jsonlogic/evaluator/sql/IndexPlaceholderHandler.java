@@ -9,17 +9,17 @@ import java.util.List;
  */
 public class IndexPlaceholderHandler implements PlaceholderHandler {
 
-    private final List<Object> parameters = new ArrayList<>();
+  private final List<Object> parameters = new ArrayList<>();
 
-    @Override
-    public String handle(String field, Object value) {
-        parameters.add(value);
-        return "?";
-    }
+  @Override
+  public String handle(String key, Object value) {
+    parameters.add(value);
+    return "?";
+  }
 
-    @Override
-    public Object[] getParameters() {
-        return parameters.toArray();
-    }
+  @Override
+  public Object[] getParameters() {
+    return parameters.toArray();
+  }
 
 }

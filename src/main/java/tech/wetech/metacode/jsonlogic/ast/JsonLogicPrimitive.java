@@ -5,12 +5,12 @@ package tech.wetech.metacode.jsonlogic.ast;
  * @date 2022/9/4
  */
 public interface JsonLogicPrimitive<T> extends JsonLogicNode {
-    T getValue();
+  T getValue();
 
-    JsonLogicPrimitiveType getPrimitiveType();
+  JsonLogicPrimitiveType getPrimitiveType();
 
-    @Override
-    default JsonLogicNodeType getType() {
-        return JsonLogicNodeType.PRIMITIVE;
-    }
+  @Override
+  default JsonLogicNodeType getType() {
+    return JsonLogicNodeType.PRIMITIVE;
+  }
 }

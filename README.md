@@ -124,7 +124,7 @@ assert Map.of("xuesheng_created_by_0",2.0,
               "xuesheng_created_by_4",6.0).equals(result.args());
 ```
 
-转换为MongoDB语法: 
+转换为MongoDB语法:
 
 ```java
 // TODO

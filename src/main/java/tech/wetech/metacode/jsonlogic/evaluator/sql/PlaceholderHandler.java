@@ -6,8 +6,8 @@ package tech.wetech.metacode.jsonlogic.evaluator.sql;
  */
 public interface PlaceholderHandler {
 
-    String handle(String field, Object value);
+  String handle(String key, Object value);
 
-    Object getParameters();
+  Object getParameters();
 
 }

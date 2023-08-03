@@ -8,15 +8,15 @@ import tech.wetech.metacode.jsonlogic.JsonLogicException;
  */
 public class JsonLogicRenderingException extends JsonLogicException {
 
-    public JsonLogicRenderingException(String message) {
-        super(message);
-    }
+  public JsonLogicRenderingException(String message) {
+    super(message);
+  }
 
-    public JsonLogicRenderingException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  public JsonLogicRenderingException(String message, Throwable cause) {
+    super(message, cause);
+  }
 
-    public JsonLogicRenderingException(Throwable cause) {
-        super(cause);
-    }
+  public JsonLogicRenderingException(Throwable cause) {
+    super(cause);
+  }
 }

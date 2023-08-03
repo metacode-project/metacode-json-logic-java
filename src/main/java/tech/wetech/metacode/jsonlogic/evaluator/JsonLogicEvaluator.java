@@ -1,6 +1,8 @@
 package tech.wetech.metacode.jsonlogic.evaluator;
 
+import tech.wetech.metacode.jsonlogic.ast.JsonLogicArray;
 import tech.wetech.metacode.jsonlogic.ast.JsonLogicNode;
+import tech.wetech.metacode.jsonlogic.ast.JsonLogicOperation;
 
 import java.util.List;
 
@@ -10,20 +12,24 @@ import java.util.List;
  */
 public interface JsonLogicEvaluator {
 
-    Object evaluate(JsonLogicNode node, Object data) throws JsonLogicEvaluationException;
+  Object evaluate(JsonLogicOperation operation, Object data) throws JsonLogicEvaluationException;
 
-    default JsonLogicEvaluator addOperation(JsonLogicExpression expression) {
-        getExpressions().add(expression);
-        return this;
-    }
+  List<?> evaluate(JsonLogicArray array, Object data) throws JsonLogicEvaluationException;
 
-    default JsonLogicExpression getExpression(String key) throws JsonLogicEvaluationException {
-        return getExpressions().stream()
-            .filter(e -> e.key().equals(key))
-            .findFirst()
-            .orElseThrow(() -> new JsonLogicEvaluationException("Undefined operation '" + key + "'"));
-    }
+  Object evaluate(JsonLogicNode node, Object data) throws JsonLogicEvaluationException;
 
-    List<JsonLogicExpression> getExpressions();
+  default JsonLogicEvaluator addOperation(JsonLogicExpression expression) {
+    getExpressions().add(expression);
+    return this;
+  }
+
+  default JsonLogicExpression getExpression(String key) throws JsonLogicEvaluationException {
+    return getExpressions().stream()
+      .filter(e -> e.key().equals(key))
+      .findFirst()
+      .orElseThrow(() -> new JsonLogicEvaluationException("Undefined operation '" + key + "'"));
+  }
+
+  List<JsonLogicExpression> getExpressions();
 
 }

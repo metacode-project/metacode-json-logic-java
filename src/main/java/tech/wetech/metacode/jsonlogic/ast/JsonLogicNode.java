@@ -9,9 +9,9 @@ import java.util.function.Function;
  * @date 2022/9/4
  */
 public interface JsonLogicNode {
-    JsonLogicNodeType getType();
+  JsonLogicNodeType getType();
 
-    default <R extends JsonLogicEvaluator> R evaluator(Function<JsonLogicNode, R> evaluator) {
-        return evaluator.apply(this);
-    }
+  default <R extends JsonLogicEvaluator> R evaluator(Function<JsonLogicNode, R> evaluator) {
+    return evaluator.apply(this);
+  }
 }

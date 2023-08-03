@@ -15,35 +15,35 @@
 
 ## Node Type
 
-| 类型               | 结构定义                                         | 说明                                                               | 示例                                      |
-|------------------|----------------------------------------------|------------------------------------------------------------------|-----------------------------------------|
-| var              | `{"var":[<variable_name> (,default_value) }` | 变量,arg1: 变量名称, arg2: 默认值，非必填                                     | {"var":["foo",1]} 或者 {"var": "foo" }    |  
-| table_field      | `{"table_field":[<table>,<field>]}`          | arg1: table, arg2: field                                         | {"table_field":["user","name"]}         |
+| 类型               | 结构定义                                         | 说明                                                               | 示例                                     |
+|------------------|----------------------------------------------|------------------------------------------------------------------|----------------------------------------|
+| var              | `{"var":[<variable_name> (,default_value) }` | 变量,arg1: 变量名称, arg2: 默认值，非必填                                     | {"var":["foo",1]} 或者 {"var": "foo" }   |  
+| table_field      | `{"table_field":[<table>,<field>]}`          | arg1: table, arg2: field                                         | {"table_field":["user","name"]}        |
 | datetime         | ` {"datetime":"2021-09-02T02:50:12.208"}`    | 日期时间, 时间格式yyyy-MM-dd'T'HH:mm:ss.SSS                              | {"datetime":"2021-09-02T02:50:12.208"} | 
-| temporal_offset  | `{"temporal_offset":[<unit>,<offset>]} `     | 时间偏移, arg1: `year` `month` `week` `day` `hour` `minute` `second` | {"temporal_offset":["year",1]}          | 
-| current_datetime | `{"current_datetime":[]} `                   | 当前时间                                                             | {"current_datetime":[]}                 | 
-| current_user     | `{"current_user":[]} `                       | 当前用户                                                             | {"current_user":[]}                     | 
+| temporal_offset  | `{"temporal_offset":[<unit>,<offset>]} `     | 时间偏移, arg1: `year` `month` `week` `day` `hour` `minute` `second` | {"temporal_offset":["year",1]}         | 
+| current_datetime | `{"current_datetime":[]} `                   | 当前时间                                                             | {"current_datetime":[]}                | 
+| current_user     | `{"current_user":[]} `                       | 当前用户                                                             | {"current_user":[]}                    | 
 
 ## Operator
 
-| 操作符          | 说明   | 可运算值类型 |
-|--------------|------|------|
-| and          | 与    |  boolean|
-| or           | 或    | boolean|
-| ==           | 等于   |number+string+boolean|
-| !=           | 不等于  |number+string+boolean|
-| >            | 大于   |number|
-| >=           | 大于等于 |number|
-| <            | 小于   |number|
-| <=           | 小于等于 |number|
-| +            | 加    |number|
-| -            | 减    |number|
-| *            | 乘    |number|
-| /            | 除    |number|
-| %            | 求余   |number|
-| contains     | 包含   |array+string|
-| not_contains | 不包含  |array+string|
-| between      | 范围   |datetime+number|
+| 操作符          | 说明   | 可运算值类型                |
+|--------------|------|-----------------------|
+| and          | 与    | boolean               |
+| or           | 或    | boolean               |
+| ==           | 等于   | number+string+boolean |
+| !=           | 不等于  | number+string+boolean |
+| >            | 大于   | number                |
+| >=           | 大于等于 | number                |
+| <            | 小于   | number                |
+| <=           | 小于等于 | number                |
+| +            | 加    | number                |
+| -            | 减    | number                |
+| *            | 乘    | number                |
+| /            | 除    | number                |
+| %            | 求余   | number                |
+| contains     | 包含   | array+string          |
+| not_contains | 不包含  | array+string          |
+| between      | 范围   | datetime+number       |
 
 ## Functions
 
@@ -56,7 +56,6 @@
 示例：{"upper":"Who Am I"}
 
 输出：WHO AM I
-
 
 #### LOWER(string)
 
@@ -129,7 +128,6 @@ len: 可选参数, 截取长度
 说明：计算最小值
 
 示例：{"min": [{"table_field":["student","age"]}]}
-
 
 #### MAX(table_field)
 

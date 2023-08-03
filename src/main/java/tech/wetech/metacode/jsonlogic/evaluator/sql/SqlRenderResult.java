@@ -6,8 +6,8 @@ package tech.wetech.metacode.jsonlogic.evaluator.sql;
  */
 public interface SqlRenderResult {
 
-    Object args();
+  Object args();
 
-    String whereClause();
+  String whereClause();
 
 }

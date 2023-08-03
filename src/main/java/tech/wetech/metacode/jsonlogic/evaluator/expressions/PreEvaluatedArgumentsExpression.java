@@ -1,8 +1,8 @@
 package tech.wetech.metacode.jsonlogic.evaluator.expressions;
 
+import tech.wetech.metacode.jsonlogic.ast.JsonLogicArray;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluationException;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluator;
-import tech.wetech.metacode.jsonlogic.ast.JsonLogicArray;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicExpression;
 
 import java.util.List;
@@ -13,13 +13,13 @@ import java.util.List;
  */
 public interface PreEvaluatedArgumentsExpression extends JsonLogicExpression {
 
-    Object evaluate(List arguments, Object data) throws JsonLogicEvaluationException;
+  Object evaluate(List arguments, Object data) throws JsonLogicEvaluationException;
 
-    @Override
+  @Override
 
-    default Object evaluate(JsonLogicEvaluator evaluator, JsonLogicArray arguments, Object data)
-        throws JsonLogicEvaluationException {
-        return evaluate((List) evaluator.evaluate(arguments, data), data);
-    }
+  default Object evaluate(JsonLogicEvaluator evaluator, JsonLogicArray arguments, Object data)
+    throws JsonLogicEvaluationException {
+    return evaluate(evaluator.evaluate(arguments, data), data);
+  }
 
 }

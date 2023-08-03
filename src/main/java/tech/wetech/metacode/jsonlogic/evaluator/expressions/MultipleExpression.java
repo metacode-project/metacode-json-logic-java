@@ -11,16 +11,16 @@ import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicExpression;
  */
 public class MultipleExpression implements JsonLogicExpression {
 
-    public static final MultipleExpression INSTANCE = new MultipleExpression();
+  public static final MultipleExpression INSTANCE = new MultipleExpression();
 
-    @Override
-    public String key() {
-        return "multiple";
-    }
+  @Override
+  public String key() {
+    return "multiple";
+  }
 
-    @Override
-    public <T extends JsonLogicEvaluator> Object evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
-        return evaluator.evaluate(arguments, data);
-    }
+  @Override
+  public <T extends JsonLogicEvaluator> Object evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
+    return evaluator.evaluate(arguments, data);
+  }
 
 }

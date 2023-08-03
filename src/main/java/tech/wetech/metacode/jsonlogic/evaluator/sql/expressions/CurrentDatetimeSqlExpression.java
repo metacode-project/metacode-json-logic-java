@@ -1,25 +1,23 @@
-package tech.wetech.metacode.jsonlogic.evaluator.expressions;
+package tech.wetech.metacode.jsonlogic.evaluator.sql.expressions;
 
 import tech.wetech.metacode.jsonlogic.ast.JsonLogicArray;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluationException;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluator;
-import tech.wetech.metacode.jsonlogic.evaluator.sql.expressions.SqlExpression;
 
 /**
  * @author cjbi
- * @date 2022/11/7
  */
-public class IdentifierExpression implements SqlExpression {
+public class CurrentDatetimeSqlExpression implements SqlExpression {
 
-  public static final IdentifierExpression INSTANCE = new IdentifierExpression();
+  public static final CurrentDatetimeSqlExpression INSTANCE = new CurrentDatetimeSqlExpression();
 
   @Override
   public String key() {
-    return "identifier";
+    return "current_datetime";
   }
 
   @Override
   public <T extends JsonLogicEvaluator> Object evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
-    return evaluator.evaluate(arguments.get(0), data);
+    return new SqlIdentifier("now()");
   }
 }

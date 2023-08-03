@@ -13,34 +13,32 @@ import java.util.List;
  */
 public class ContainsExpression implements JsonLogicExpression {
 
-    private final boolean isNot;
+  public static final ContainsExpression CONTAINS = new ContainsExpression(false);
+  public static final ContainsExpression NOT_CONTAINS = new ContainsExpression(true);
+  private final boolean isNot;
 
-    public static final ContainsExpression CONTAINS = new ContainsExpression(false);
+  public ContainsExpression(boolean isNot) {
+    this.isNot = isNot;
+  }
 
-    public static final ContainsExpression NOT_CONTAINS = new ContainsExpression(true);
+  @Override
+  public String key() {
+    return isNot ? "not_contains" : "contains";
+  }
 
-    public ContainsExpression(boolean isNot) {
-        this.isNot = isNot;
+  @Override
+  public <T extends JsonLogicEvaluator> Boolean evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
+    Object left = evaluator.evaluate(arguments.get(0), data);
+    Object right = evaluator.evaluate(arguments.get(1), data);
+    if (left instanceof String leftString && right instanceof String rightString) {
+      return isNot != leftString.contains(rightString);
     }
-
-    @Override
-    public String key() {
-        return isNot ? "not_contains" : "contains";
+    if (left instanceof List<?> leftList && right instanceof List<?> rightList) {
+      return leftList.containsAll(rightList);
     }
-
-    @Override
-    public <T extends JsonLogicEvaluator> Boolean evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
-        Object left = evaluator.evaluate(arguments.get(0), data);
-        Object right = evaluator.evaluate(arguments.get(1), data);
-        if (left instanceof String leftString && right instanceof String rightString) {
-            return isNot != leftString.contains(rightString);
-        }
-        if (left instanceof List<?> leftList && right instanceof List<?> rightList) {
-            return leftList.containsAll(rightList);
-        }
-        if (left instanceof List<?> leftList && right instanceof String rightString) {
-            return leftList.contains(rightString);
-        }
-        throw new JsonLogicEvaluationException("unsupported comparison");
+    if (left instanceof List<?> leftList && right instanceof String rightString) {
+      return leftList.contains(rightString);
     }
+    throw new JsonLogicEvaluationException("unsupported comparison");
+  }
 }
