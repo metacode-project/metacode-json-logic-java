@@ -14,14 +14,14 @@ import java.util.stream.Collectors;
  * @author cjbi
  * @date 2022/9/6
  */
-public class LogicSqlExpression implements SqlExpression {
+public class LogicSqlClauseExpression implements SqlClauseExpression {
 
-  public static final LogicSqlExpression AND = new LogicSqlExpression(true);
-  public static final LogicSqlExpression OR = new LogicSqlExpression(false);
+  public static final LogicSqlClauseExpression AND = new LogicSqlClauseExpression(true);
+  public static final LogicSqlClauseExpression OR = new LogicSqlClauseExpression(false);
 
   private final boolean isAnd;
 
-  private LogicSqlExpression(boolean isAnd) {
+  private LogicSqlClauseExpression(boolean isAnd) {
     this.isAnd = isAnd;
   }
 
@@ -31,17 +31,17 @@ public class LogicSqlExpression implements SqlExpression {
   }
 
   @Override
-  public <T extends JsonLogicEvaluator> String evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
+  public <T extends JsonLogicEvaluator> SqlIdentifier evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
     SqlRuntimeContext sqlRuntimeContext = (SqlRuntimeContext) data;
     if (arguments.size() < 1) {
       throw new JsonLogicEvaluationException("and operator expects at least 1 argument");
     }
     List<String> list = new ArrayList<>();
     for (JsonLogicNode element : arguments) {
-      list.add((String) evaluator.evaluate(element, sqlRuntimeContext));
+      list.add(evaluator.evaluate(element, sqlRuntimeContext).toString());
     }
     String whereClause = list.stream()
       .collect(Collectors.joining(" " + key() + " ", " (", " )"));
-    return whereClause;
+    return new SqlIdentifier(whereClause);
   }
 }

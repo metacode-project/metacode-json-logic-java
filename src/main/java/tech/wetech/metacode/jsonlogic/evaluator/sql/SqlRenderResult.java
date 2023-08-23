@@ -8,6 +8,6 @@ public interface SqlRenderResult {
 
   Object args();
 
-  String whereClause();
+  String sqlClause();
 
 }

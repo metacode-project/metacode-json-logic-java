@@ -97,7 +97,7 @@ String expression = """
   }
 """
 IndexSqlRenderResult result = jsonLogic.evaluateIndexSql(expression);
-assert " ( user.id > ? and  ? = user.name and  user.age < ? )".equals(result.whereClause());;
+assert " ( user.id > ? and  ? = user.name and  user.age < ? )".equals(result.sqlClause());;
 assert List.of(2.0, "jack", 21.0).equals(result.args());
 ```
 
@@ -116,7 +116,7 @@ String expression = """
 """;
 NamedSqlRenderResult result = jsonLogic.evaluateNamedSql(expression);
 assert "xuesheng.created_by in (:xuesheng_created_by_0, :xuesheng_created_by_1, :xuesheng_created_by_2, :xuesheng_created_by_3, :xuesheng_created_by_4) "
-    .equals(result.whereClause());
+    .equals(result.sqlClause());
 assert Map.of("xuesheng_created_by_0",2.0,
               "xuesheng_created_by_1",3.0,
               "xuesheng_created_by_2",4.0,

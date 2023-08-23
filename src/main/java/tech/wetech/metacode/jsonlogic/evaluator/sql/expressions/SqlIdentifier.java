@@ -1,7 +1,7 @@
 package tech.wetech.metacode.jsonlogic.evaluator.sql.expressions;
 
 /**
- * sql 标识符
+ * sqlClause 标识符
  *
  * @author cjbi
  */

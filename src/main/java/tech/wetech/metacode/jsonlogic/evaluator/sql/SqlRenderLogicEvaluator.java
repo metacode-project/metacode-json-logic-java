@@ -21,7 +21,7 @@ public class SqlRenderLogicEvaluator extends AbstractSqlRenderLogicEvaluator {
     IndexPlaceholderHandler placeholderHandler = new IndexPlaceholderHandler();
     sqlRuntimeContext.setPlaceholderHandler(placeholderHandler);
 
-    return new IndexSqlRenderResult((String) evaluate((JsonLogicOperation) root, sqlRuntimeContext), placeholderHandler.getParameters());
+    return new IndexSqlRenderResult(evaluate((JsonLogicOperation) root, sqlRuntimeContext).toString(), placeholderHandler.getParameters());
   }
 
 }

@@ -28,7 +28,7 @@ public class TextTests {
       }
       """;
     NamedSqlRenderResult result = jsonLogic.evaluateNamedSql(json);
-    assertEquals(" defaultvaluetest.wenben1 = defaultvaluetest.wenben1", result.whereClause());
+    assertEquals(" defaultvaluetest.wenben1 = defaultvaluetest.wenben1", result.sqlClause());
   }
 
   @Test
@@ -43,7 +43,7 @@ public class TextTests {
       }
       """;
     NamedSqlRenderResult result = jsonLogic.evaluateNamedSql(json);
-    assertEquals(" ( defaultvaluetest.wenben1 like concat('%', concat(:defaultvaluetest_wenben1_0,'%')) )", result.whereClause());
+    assertEquals(" ( defaultvaluetest.wenben1 like concat('%', concat(:defaultvaluetest_wenben1_0,'%')) )", result.sqlClause());
     assertTrue(result.args().values().contains("二十大"));
     assertTrue(jsonLogic.evaluateBoolean(json, Map.of("defaultvaluetest", Map.of("wenben1", "党的二十大"))));
   }
@@ -60,7 +60,7 @@ public class TextTests {
       }
       """;
     NamedSqlRenderResult result = jsonLogic.evaluateNamedSql(json);
-    assertEquals(" ( defaultvaluetest.wenben1 not like concat('%', concat(:defaultvaluetest_wenben1_0,'%')) )", result.whereClause());
+    assertEquals(" ( defaultvaluetest.wenben1 not like concat('%', concat(:defaultvaluetest_wenben1_0,'%')) )", result.sqlClause());
     assertTrue(result.args().containsValue("二十大"));
     assertFalse(jsonLogic.evaluateBoolean(json, Map.of("defaultvaluetest", Map.of("wenben1", "党的二十大"))));
   }

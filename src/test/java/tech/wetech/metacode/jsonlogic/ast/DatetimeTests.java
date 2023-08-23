@@ -29,7 +29,7 @@ public class DatetimeTests {
        }
       """;
     NamedSqlRenderResult result = jsonLogic.evaluateNamedSql(json);
-    String sql = result.whereClause();
+    String sql = result.sqlClause();
     for (Map.Entry<String, Object> entry : result.args().entrySet()) {
       sql = sql.replace(":" + entry.getKey(), "'" + entry.getValue().toString() + "'");
     }

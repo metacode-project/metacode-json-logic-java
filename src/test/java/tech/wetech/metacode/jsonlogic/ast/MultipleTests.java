@@ -34,7 +34,7 @@ public class MultipleTests {
       }
       """;
     NamedSqlRenderResult result = jsonLogic.evaluateNamedSql(json);
-    assertEquals(" (defaultvaluetest.duoxuan2 in (:defaultvaluetest_duoxuan2_0, :defaultvaluetest_duoxuan2_1)  )", result.whereClause());
+    assertEquals(" (defaultvaluetest.duoxuan2 in (:defaultvaluetest_duoxuan2_0, :defaultvaluetest_duoxuan2_1)  )", result.sqlClause());
     assertTrue(jsonLogic.evaluateBoolean(json, Map.of("defaultvaluetest", Map.of("duoxuan2", Arrays.asList("天空", "大地", "海洋")))));
   }
 
@@ -53,7 +53,7 @@ public class MultipleTests {
       }
       """;
     NamedSqlRenderResult result = jsonLogic.evaluateNamedSql(json);
-    assertEquals(" (defaultvaluetest.duoxuan2 in (:defaultvaluetest_duoxuan2_0, :defaultvaluetest_duoxuan2_1)  )", result.whereClause());
+    assertEquals(" (defaultvaluetest.duoxuan2 in (:defaultvaluetest_duoxuan2_0, :defaultvaluetest_duoxuan2_1)  )", result.sqlClause());
     assertTrue(jsonLogic.evaluateBoolean(json, Map.of("defaultvaluetest", Map.of("duoxuan2", Map.of("multiple", Arrays.asList("天空", "大地", "海洋"))))));
   }
 
@@ -72,7 +72,7 @@ public class MultipleTests {
       }
       """;
     NamedSqlRenderResult result = jsonLogic.evaluateNamedSql(json);
-    assertEquals(" ( defaultvaluetest.duoxuan2 like concat('%', concat(:defaultvaluetest_duoxuan2_0,'%')) )", result.whereClause());
+    assertEquals(" ( defaultvaluetest.duoxuan2 like concat('%', concat(:defaultvaluetest_duoxuan2_0,'%')) )", result.sqlClause());
     assertTrue(jsonLogic.evaluateBoolean(json, Map.of("defaultvaluetest", Map.of("duoxuan2", Arrays.asList("天空", "大地", "海洋")))));
   }
 

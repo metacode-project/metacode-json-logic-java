@@ -21,7 +21,7 @@ public class NamedSqlRenderLogicEvaluator extends AbstractSqlRenderLogicEvaluato
     runtimeContext.setPlaceholderHandler(placeholderHandler);
     runtimeContext.setIdentifierQuoteString(identifierQuoteString);
     Object sql = evaluate((JsonLogicOperation) root, runtimeContext);
-    return new NamedSqlRenderResult((String) sql, placeholderHandler.getParameters());
+    return new NamedSqlRenderResult(sql.toString(), placeholderHandler.getParameters());
   }
 
 

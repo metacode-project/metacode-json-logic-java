@@ -13,15 +13,15 @@ import java.util.stream.Collectors;
  * @author cjbi
  * @date 2022/11/6
  */
-public class ContainsExpression implements SqlExpression {
+public class ContainsSqlClauseExpression implements SqlClauseExpression {
 
-  public static final ContainsExpression CONTAINS = new ContainsExpression(false);
+  public static final ContainsSqlClauseExpression CONTAINS = new ContainsSqlClauseExpression(false);
 
-  public static final ContainsExpression NOT_CONTAINS = new ContainsExpression(true);
+  public static final ContainsSqlClauseExpression NOT_CONTAINS = new ContainsSqlClauseExpression(true);
 
   private final boolean isNot;
 
-  public ContainsExpression(boolean isNot) {
+  public ContainsSqlClauseExpression(boolean isNot) {
     this.isNot = isNot;
   }
 
@@ -32,7 +32,7 @@ public class ContainsExpression implements SqlExpression {
 
   @Override
   @SuppressWarnings("unchecked")
-  public <T extends JsonLogicEvaluator> Object evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
+  public <T extends JsonLogicEvaluator> SqlIdentifier evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
     SqlRuntimeContext sqlRuntimeContext = (SqlRuntimeContext) data;
     PlaceholderHandler placeholderHandler = sqlRuntimeContext.getPlaceholderHandler();
     Object left = evaluator.evaluate(arguments.get(0), data);
@@ -45,13 +45,13 @@ public class ContainsExpression implements SqlExpression {
         String s = left + " in" + list.stream()
           .map(i -> placeholderHandler.handle(left.toString(), i))
           .collect(Collectors.joining(", ", " (", ") "));
-        return s;
+        return new SqlIdentifier(s);
       }
-      return list.stream()
+      return new SqlIdentifier(list.stream()
         .map(element -> getSingle(placeholderHandler, left, right, isTableFieldExpression(arguments.get(1))))
-        .collect(Collectors.joining(" and ", " (", ") "));
+        .collect(Collectors.joining(" and ", " (", ") ")));
     }
-    return getSingle(placeholderHandler, left, right, isTableFieldExpression(arguments.get(1)));
+    return new SqlIdentifier(getSingle(placeholderHandler, left, right, isTableFieldExpression(arguments.get(1))));
   }
 
   public String getSingle(PlaceholderHandler placeholderHandler, Object left, Object right, boolean rightIsTableField) {

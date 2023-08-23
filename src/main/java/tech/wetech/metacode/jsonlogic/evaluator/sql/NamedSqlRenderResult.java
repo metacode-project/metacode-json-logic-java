@@ -6,6 +6,6 @@ import java.util.Map;
  * @author cjbi
  * @date 2022/9/6
  */
-public record NamedSqlRenderResult(String whereClause, Map<String, Object> args) implements SqlRenderResult {
+public record NamedSqlRenderResult(String sqlClause, Map<String, Object> args) implements SqlRenderResult {
 
 }

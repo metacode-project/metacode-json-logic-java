@@ -3,13 +3,13 @@ package tech.wetech.metacode.jsonlogic.evaluator.expressions;
 import tech.wetech.metacode.jsonlogic.ast.JsonLogicArray;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluationException;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluator;
-import tech.wetech.metacode.jsonlogic.evaluator.sql.expressions.SqlExpression;
+import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicExpression;
 
 /**
  * @author cjbi
  * @date 2022/11/7
  */
-public class RadioExpression implements SqlExpression {
+public class RadioExpression implements JsonLogicExpression {
 
   public static final RadioExpression INSTANCE = new RadioExpression();
 

@@ -29,7 +29,7 @@ public class SqlRendererIdentifierQuoteTests {
     IndexSqlRenderResult renderResult = jsonLogic.evaluateIndexSql(json, "`");
     assertEquals(
       " ( `user`.`id` > ? and  ? = `user`.`name` and  `user`.`age` < ? )",
-      renderResult.whereClause());
+      renderResult.sqlClause());
     assertEquals(3, renderResult.args().length);
   }
 
@@ -52,7 +52,7 @@ public class SqlRendererIdentifierQuoteTests {
       "xuesheng_created_by_3", 5.0,
       "xuesheng_created_by_4", 6.0), renderResult.args());
     assertEquals("\"xuesheng\".\"created_by\" in (:xuesheng_created_by_0, :xuesheng_created_by_1, :xuesheng_created_by_2, :xuesheng_created_by_3, :xuesheng_created_by_4) ",
-      renderResult.whereClause()
+      renderResult.sqlClause()
     );
   }
 

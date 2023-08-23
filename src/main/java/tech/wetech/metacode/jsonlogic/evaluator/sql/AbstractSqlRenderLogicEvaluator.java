@@ -5,7 +5,6 @@ import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluationException;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluator;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicExpression;
 import tech.wetech.metacode.jsonlogic.evaluator.expressions.*;
-import tech.wetech.metacode.jsonlogic.evaluator.sql.expressions.ContainsExpression;
 import tech.wetech.metacode.jsonlogic.evaluator.sql.expressions.*;
 
 import java.util.ArrayList;
@@ -21,20 +20,34 @@ public abstract class AbstractSqlRenderLogicEvaluator implements JsonLogicEvalua
 
   protected AbstractSqlRenderLogicEvaluator() {
 
-    addOperation(LogicSqlExpression.AND);
-    addOperation(LogicSqlExpression.OR);
+    addOperation(LogicSqlClauseExpression.AND);
+    addOperation(LogicSqlClauseExpression.OR);
 
-    addOperation(ComparisonSqlRenderExpression.EQ);
-    addOperation(ComparisonSqlRenderExpression.NE);
-    addOperation(ComparisonSqlRenderExpression.GT);
-    addOperation(ComparisonSqlRenderExpression.GTE);
-    addOperation(ComparisonSqlRenderExpression.LT);
-    addOperation(ComparisonSqlRenderExpression.LTE);
+    addOperation(ComparisonSqlClauseExpression.EQ);
+    addOperation(ComparisonSqlClauseExpression.NE);
+    addOperation(ComparisonSqlClauseExpression.GT);
+    addOperation(ComparisonSqlClauseExpression.GTE);
+    addOperation(ComparisonSqlClauseExpression.LT);
+    addOperation(ComparisonSqlClauseExpression.LTE);
 
-    addOperation(ContainsExpression.CONTAINS);
-    addOperation(ContainsExpression.NOT_CONTAINS);
+    addOperation(AggregationSqlClauseExpression.COUNT);
+    addOperation(AggregationSqlClauseExpression.MAX);
+    addOperation(AggregationSqlClauseExpression.MIN);
+    addOperation(AggregationSqlClauseExpression.SUM);
+    addOperation(AggregationSqlClauseExpression.AVG);
 
-    addOperation(TableFieldSqlExpression.INSTANCE);
+    addOperation(MathSqlClauseExpression.ADD);
+    addOperation(MathSqlClauseExpression.SUBTRACT);
+    addOperation(MathSqlClauseExpression.MULTIPLY);
+    addOperation(MathSqlClauseExpression.DIVIDE);
+    addOperation(MathSqlClauseExpression.MODULO);
+    addOperation(MathSqlClauseExpression.MIN);
+    addOperation(MathSqlClauseExpression.MAX);
+
+    addOperation(ContainsSqlClauseExpression.CONTAINS);
+    addOperation(ContainsSqlClauseExpression.NOT_CONTAINS);
+
+    addOperation(TableFieldSqlClauseExpression.INSTANCE);
 
     addOperation(RadioExpression.INSTANCE);
     addOperation(DatetimeExpression.INSTANCE);
@@ -42,7 +55,7 @@ public abstract class AbstractSqlRenderLogicEvaluator implements JsonLogicEvalua
     addOperation(AttachExpression.INSTANCE);
     addOperation(IdentifierExpression.INSTANCE);
 
-    addOperation(CurrentDatetimeSqlExpression.INSTANCE);
+    addOperation(CurrentDatetimeSqlClauseExpression.INSTANCE);
   }
 
   public SqlRenderResult evaluate(JsonLogicNode root, String identifierQuoteString) throws JsonLogicEvaluationException {
