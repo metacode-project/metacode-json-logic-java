@@ -7,14 +7,14 @@ package tech.wetech.metacode.jsonlogic.evaluator.sql.expressions;
  */
 public class SqlIdentifier {
 
-  private final String name;
+  private final String value;
 
-  public SqlIdentifier(String name) {
-    this.name = name;
+  public SqlIdentifier(String value) {
+    this.value = value;
   }
 
   @Override
   public String toString() {
-    return name;
+    return value;
   }
 }

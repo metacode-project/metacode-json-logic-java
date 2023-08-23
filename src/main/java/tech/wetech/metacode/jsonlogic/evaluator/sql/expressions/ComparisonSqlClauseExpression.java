@@ -6,7 +6,6 @@ import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluator;
 import tech.wetech.metacode.jsonlogic.evaluator.sql.PlaceholderHandler;
 import tech.wetech.metacode.jsonlogic.evaluator.sql.SqlRuntimeContext;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -22,12 +21,7 @@ public class ComparisonSqlClauseExpression implements SqlClauseExpression {
   public static final ComparisonSqlClauseExpression GTE = new ComparisonSqlClauseExpression(">=");
   public static final ComparisonSqlClauseExpression LT = new ComparisonSqlClauseExpression("<");
   public static final ComparisonSqlClauseExpression LTE = new ComparisonSqlClauseExpression("<=");
-  private static Map<String, Object> OPERATOR_MAP = new HashMap<>();
-
-  static {
-    OPERATOR_MAP.put("==", "=");
-  }
-
+  private static final Map<String, Object> OPERATOR_MAP = Map.of("==", "=");
   private final String key;
 
   private ComparisonSqlClauseExpression(String key) {
