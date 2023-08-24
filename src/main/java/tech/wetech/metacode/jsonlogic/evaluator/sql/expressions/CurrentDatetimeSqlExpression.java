@@ -7,9 +7,9 @@ import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluator;
 /**
  * @author cjbi
  */
-public class CurrentDatetimeSqlClauseExpression implements SqlClauseExpression {
+public class CurrentDatetimeSqlExpression implements SqlExpression {
 
-  public static final CurrentDatetimeSqlClauseExpression INSTANCE = new CurrentDatetimeSqlClauseExpression();
+  public static final CurrentDatetimeSqlExpression INSTANCE = new CurrentDatetimeSqlExpression();
 
   @Override
   public String key() {

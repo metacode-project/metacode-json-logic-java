@@ -9,9 +9,9 @@ import tech.wetech.metacode.jsonlogic.evaluator.sql.SqlRuntimeContext;
  * @author cjbi
  * @date 2022/11/7
  */
-public class TableFieldSqlClauseExpression implements SqlClauseExpression {
+public class TableFieldSqlExpression implements SqlExpression {
 
-  public static final TableFieldSqlClauseExpression INSTANCE = new TableFieldSqlClauseExpression();
+  public static final TableFieldSqlExpression INSTANCE = new TableFieldSqlExpression();
 
   @Override
   public String key() {

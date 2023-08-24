@@ -12,19 +12,19 @@ import java.util.Map;
  * @author cjbi
  * @date 2022/9/5
  */
-public class ComparisonSqlClauseExpression implements SqlClauseExpression {
+public class ComparisonSqlExpression implements SqlExpression {
 
 
-  public static final ComparisonSqlClauseExpression EQ = new ComparisonSqlClauseExpression("==");
-  public static final ComparisonSqlClauseExpression NE = new ComparisonSqlClauseExpression("!=");
-  public static final ComparisonSqlClauseExpression GT = new ComparisonSqlClauseExpression(">");
-  public static final ComparisonSqlClauseExpression GTE = new ComparisonSqlClauseExpression(">=");
-  public static final ComparisonSqlClauseExpression LT = new ComparisonSqlClauseExpression("<");
-  public static final ComparisonSqlClauseExpression LTE = new ComparisonSqlClauseExpression("<=");
+  public static final ComparisonSqlExpression EQ = new ComparisonSqlExpression("==");
+  public static final ComparisonSqlExpression NE = new ComparisonSqlExpression("!=");
+  public static final ComparisonSqlExpression GT = new ComparisonSqlExpression(">");
+  public static final ComparisonSqlExpression GTE = new ComparisonSqlExpression(">=");
+  public static final ComparisonSqlExpression LT = new ComparisonSqlExpression("<");
+  public static final ComparisonSqlExpression LTE = new ComparisonSqlExpression("<=");
   private static final Map<String, Object> OPERATOR_MAP = Map.of("==", "=");
   private final String key;
 
-  private ComparisonSqlClauseExpression(String key) {
+  private ComparisonSqlExpression(String key) {
     this.key = key;
   }
 

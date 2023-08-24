@@ -13,15 +13,15 @@ import java.util.stream.Collectors;
  * @author cjbi
  * @date 2022/11/6
  */
-public class ContainsSqlClauseExpression implements SqlClauseExpression {
+public class ContainsSqlExpression implements SqlExpression {
 
-  public static final ContainsSqlClauseExpression CONTAINS = new ContainsSqlClauseExpression(false);
+  public static final ContainsSqlExpression CONTAINS = new ContainsSqlExpression(false);
 
-  public static final ContainsSqlClauseExpression NOT_CONTAINS = new ContainsSqlClauseExpression(true);
+  public static final ContainsSqlExpression NOT_CONTAINS = new ContainsSqlExpression(true);
 
   private final boolean isNot;
 
-  public ContainsSqlClauseExpression(boolean isNot) {
+  public ContainsSqlExpression(boolean isNot) {
     this.isNot = isNot;
   }
 

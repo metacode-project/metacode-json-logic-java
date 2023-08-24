@@ -8,9 +8,9 @@ import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluationException;
  * @author cjbi
  * @date 2022/9/7
  */
-public class NamedSqlRenderLogicEvaluator extends AbstractSqlRenderLogicEvaluator {
+public class NamedSqlLogicEvaluator extends AbstractSqlLogicEvaluator {
 
-  public NamedSqlRenderLogicEvaluator() {
+  public NamedSqlLogicEvaluator() {
     super();
   }
 

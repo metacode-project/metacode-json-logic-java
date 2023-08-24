@@ -13,7 +13,7 @@ import tech.wetech.metacode.jsonlogic.evaluator.sql.PlaceholderHandler;
  * @author cjbi
  * @date 2022/11/6
  */
-public interface SqlClauseExpression extends JsonLogicExpression {
+public interface SqlExpression extends JsonLogicExpression {
 
   SqlIdentifier TRUE = new SqlIdentifier("1=1");
   SqlIdentifier FALSE = new SqlIdentifier("1<>1");

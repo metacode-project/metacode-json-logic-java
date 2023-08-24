@@ -3,7 +3,7 @@ package tech.wetech.metacode.jsonlogic;
 import tech.wetech.metacode.jsonlogic.ast.JsonLogicParser;
 import tech.wetech.metacode.jsonlogic.evaluator.*;
 import tech.wetech.metacode.jsonlogic.evaluator.sql.IndexSqlRenderResult;
-import tech.wetech.metacode.jsonlogic.evaluator.sql.NamedSqlRenderLogicEvaluator;
+import tech.wetech.metacode.jsonlogic.evaluator.sql.NamedSqlLogicEvaluator;
 import tech.wetech.metacode.jsonlogic.evaluator.sql.NamedSqlRenderResult;
 import tech.wetech.metacode.jsonlogic.evaluator.sql.SqlRenderLogicEvaluator;
 
@@ -24,7 +24,7 @@ public class JsonLogic {
     evaluators.put(StringLogicEvaluator.class, new StringLogicEvaluator());
     evaluators.put(BooleanJsonLogicEvaluator.class, new BooleanJsonLogicEvaluator());
     evaluators.put(NumberJsonLogicEvaluator.class, new NumberJsonLogicEvaluator());
-    evaluators.put(NamedSqlRenderLogicEvaluator.class, new NamedSqlRenderLogicEvaluator());
+    evaluators.put(NamedSqlLogicEvaluator.class, new NamedSqlLogicEvaluator());
     evaluators.put(SqlRenderLogicEvaluator.class, new SqlRenderLogicEvaluator());
   }
 
@@ -93,7 +93,7 @@ public class JsonLogic {
   }
 
   public void addNamedSqlOperation(JsonLogicExpression expression) {
-    evaluators.get(NamedSqlRenderLogicEvaluator.class).addOperation(expression);
+    evaluators.get(NamedSqlLogicEvaluator.class).addOperation(expression);
   }
 
   public boolean evaluateBoolean(String json, Object data) throws JsonLogicException {
@@ -113,7 +113,7 @@ public class JsonLogic {
   }
 
   public NamedSqlRenderResult evaluateNamedSql(String json, String identifierQuoteString) throws JsonLogicException {
-    return ((NamedSqlRenderLogicEvaluator) evaluators.get(NamedSqlRenderLogicEvaluator.class)).evaluate(JsonLogicParser.parse(json), identifierQuoteString);
+    return ((NamedSqlLogicEvaluator) evaluators.get(NamedSqlLogicEvaluator.class)).evaluate(JsonLogicParser.parse(json), identifierQuoteString);
   }
 
   public IndexSqlRenderResult evaluateIndexSql(String json) throws JsonLogicException {

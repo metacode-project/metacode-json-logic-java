@@ -14,14 +14,14 @@ import java.util.stream.Collectors;
  * @author cjbi
  * @date 2022/9/6
  */
-public class LogicSqlClauseExpression implements SqlClauseExpression {
+public class LogicSqlExpression implements SqlExpression {
 
-  public static final LogicSqlClauseExpression AND = new LogicSqlClauseExpression(true);
-  public static final LogicSqlClauseExpression OR = new LogicSqlClauseExpression(false);
+  public static final LogicSqlExpression AND = new LogicSqlExpression(true);
+  public static final LogicSqlExpression OR = new LogicSqlExpression(false);
 
   private final boolean isAnd;
 
-  private LogicSqlClauseExpression(boolean isAnd) {
+  private LogicSqlExpression(boolean isAnd) {
     this.isAnd = isAnd;
   }
 

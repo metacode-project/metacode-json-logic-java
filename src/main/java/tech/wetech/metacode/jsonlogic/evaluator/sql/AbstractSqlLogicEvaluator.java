@@ -14,40 +14,40 @@ import java.util.List;
  * @author cjbi
  * @date 2022/9/7
  */
-public abstract class AbstractSqlRenderLogicEvaluator implements JsonLogicEvaluator {
+public abstract class AbstractSqlLogicEvaluator implements JsonLogicEvaluator {
 
   protected final List<JsonLogicExpression> expressions = new ArrayList<>();
 
-  protected AbstractSqlRenderLogicEvaluator() {
+  protected AbstractSqlLogicEvaluator() {
 
-    addOperation(LogicSqlClauseExpression.AND);
-    addOperation(LogicSqlClauseExpression.OR);
+    addOperation(LogicSqlExpression.AND);
+    addOperation(LogicSqlExpression.OR);
 
-    addOperation(ComparisonSqlClauseExpression.EQ);
-    addOperation(ComparisonSqlClauseExpression.NE);
-    addOperation(ComparisonSqlClauseExpression.GT);
-    addOperation(ComparisonSqlClauseExpression.GTE);
-    addOperation(ComparisonSqlClauseExpression.LT);
-    addOperation(ComparisonSqlClauseExpression.LTE);
+    addOperation(ComparisonSqlExpression.EQ);
+    addOperation(ComparisonSqlExpression.NE);
+    addOperation(ComparisonSqlExpression.GT);
+    addOperation(ComparisonSqlExpression.GTE);
+    addOperation(ComparisonSqlExpression.LT);
+    addOperation(ComparisonSqlExpression.LTE);
 
-    addOperation(AggregationSqlClauseExpression.COUNT);
-    addOperation(AggregationSqlClauseExpression.MAX);
-    addOperation(AggregationSqlClauseExpression.MIN);
-    addOperation(AggregationSqlClauseExpression.SUM);
-    addOperation(AggregationSqlClauseExpression.AVG);
+    addOperation(AggregationSqlExpression.COUNT);
+    addOperation(AggregationSqlExpression.MAX);
+    addOperation(AggregationSqlExpression.MIN);
+    addOperation(AggregationSqlExpression.SUM);
+    addOperation(AggregationSqlExpression.AVG);
 
-    addOperation(MathSqlClauseExpression.ADD);
-    addOperation(MathSqlClauseExpression.SUBTRACT);
-    addOperation(MathSqlClauseExpression.MULTIPLY);
-    addOperation(MathSqlClauseExpression.DIVIDE);
-    addOperation(MathSqlClauseExpression.MODULO);
-    addOperation(MathSqlClauseExpression.MIN);
-    addOperation(MathSqlClauseExpression.MAX);
+    addOperation(MathSqlExpression.ADD);
+    addOperation(MathSqlExpression.SUBTRACT);
+    addOperation(MathSqlExpression.MULTIPLY);
+    addOperation(MathSqlExpression.DIVIDE);
+    addOperation(MathSqlExpression.MODULO);
+    addOperation(MathSqlExpression.MIN);
+    addOperation(MathSqlExpression.MAX);
 
-    addOperation(ContainsSqlClauseExpression.CONTAINS);
-    addOperation(ContainsSqlClauseExpression.NOT_CONTAINS);
+    addOperation(ContainsSqlExpression.CONTAINS);
+    addOperation(ContainsSqlExpression.NOT_CONTAINS);
 
-    addOperation(TableFieldSqlClauseExpression.INSTANCE);
+    addOperation(TableFieldSqlExpression.INSTANCE);
 
     addOperation(RadioExpression.INSTANCE);
     addOperation(DatetimeExpression.INSTANCE);
@@ -55,7 +55,7 @@ public abstract class AbstractSqlRenderLogicEvaluator implements JsonLogicEvalua
     addOperation(AttachExpression.INSTANCE);
     addOperation(IdentifierExpression.INSTANCE);
 
-    addOperation(CurrentDatetimeSqlClauseExpression.INSTANCE);
+    addOperation(CurrentDatetimeSqlExpression.INSTANCE);
   }
 
   public SqlRenderResult evaluate(JsonLogicNode root, String identifierQuoteString) throws JsonLogicEvaluationException {
