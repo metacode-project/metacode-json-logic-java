@@ -32,6 +32,9 @@ public class AggregationSqlExpression implements SqlExpression {
 
   @Override
   public <T extends JsonLogicEvaluator> SqlIdentifier evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
+    if (key.equals("count_agg") && arguments.isEmpty()) {
+      return fn.apply("*");
+    }
     return fn.apply(evaluator.evaluate(arguments.get(0), data).toString());
   }
 }

@@ -136,7 +136,12 @@ public class SqlRendererJsonLogicTests {
     assertEquals("sum(`sales`.`unit_price` * `sales`.`num`)",
       jsonLogic.evaluateNamedSql(expression4, "`").sqlClause()
     );
-
+    String expression5 = """
+      { "count_agg": [] }
+      """;
+    assertEquals("count(*)",
+      jsonLogic.evaluateNamedSql(expression5, "`").sqlClause()
+    );
   }
 
 }
