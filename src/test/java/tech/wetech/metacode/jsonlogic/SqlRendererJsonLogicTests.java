@@ -144,4 +144,33 @@ public class SqlRendererJsonLogicTests {
     );
   }
 
+  @Test
+  void testBetween() throws JsonLogicException {
+    String expression0 = """
+      {
+        "between": [
+          { "table_field": ["user", "birthday"] },
+          {"datetime": "2023-10-02T00:00:00.000"},
+          {"datetime": "2023-11-30T00:00:00.000"}
+        ]
+       }
+      """;
+    assertEquals(" `user`.`birthday` between :user_birthday_0 and :user_birthday_1",
+      jsonLogic.evaluateNamedSql(expression0, "`").sqlClause()
+    );
+
+    String expression1 = """
+      {
+        "between": [
+          { "table_field": ["user", "age"] },
+          1,
+          15
+        ]
+       }
+      """;
+    assertEquals(" `user`.`age` between :user_age_0 and :user_age_1",
+      jsonLogic.evaluateNamedSql(expression1, "`").sqlClause()
+    );
+  }
+
 }

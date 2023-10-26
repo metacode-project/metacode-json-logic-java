@@ -25,6 +25,7 @@ public class BooleanJsonLogicEvaluator extends PrimitiveTypeJsonLogicEvaluator i
 
     addOperation(ContainsExpression.CONTAINS);
     addOperation(ContainsExpression.NOT_CONTAINS);
+    addOperation(BetweenExpression.INSTANCE);
 
     addOperation(RadioExpression.INSTANCE);
     addOperation(DatetimeExpression.INSTANCE);

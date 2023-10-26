@@ -2,6 +2,7 @@ package tech.wetech.metacode.jsonlogic;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -78,6 +79,36 @@ public class BooleanJsonLogicTests {
           }
       """;
     assertTrue(jsonLogic.evaluateBoolean(json, Map.of("user", data)));
+
+  }
+
+  @Test
+  void testBetween() throws JsonLogicException {
+    Map<String, Object> data = new HashMap<>();
+    data.put("age", 14);
+    String expression = """
+      {
+        "between": [
+          { "table_field": ["user", "age"] },
+          1,
+          15
+        ]
+      }
+      """;
+    assertTrue(jsonLogic.evaluateBoolean(expression, Map.of("user", data)));
+
+    Map<String, Object> data2 = new HashMap<>();
+    data2.put("birthday", LocalDateTime.of(2023, 10, 3, 0, 0, 0));
+    String expression2 = """
+      {
+        "between": [
+          { "table_field": ["user", "birthday"] },
+          {"datetime": "2023-10-02T00:00:00.000"},
+          {"datetime": "2023-11-30T00:00:00.000"}
+        ]
+       }
+      """;
+    assertTrue(jsonLogic.evaluateBoolean(expression2, Map.of("user", data2)));
 
   }
 
