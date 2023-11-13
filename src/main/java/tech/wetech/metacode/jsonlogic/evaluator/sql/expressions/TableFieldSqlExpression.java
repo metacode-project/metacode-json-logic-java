@@ -19,10 +19,11 @@ public class TableFieldSqlExpression implements SqlExpression {
   }
 
   @Override
-  public <T extends JsonLogicEvaluator> SqlIdentifier evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
+  public <T extends JsonLogicEvaluator> SqlNode evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
     SqlRuntimeContext sqlRuntimeContext = (SqlRuntimeContext) data;
-    String table = sqlRuntimeContext.quoteIdentifier((String) evaluator.evaluate(arguments.get(0), data));
-    String field = sqlRuntimeContext.quoteIdentifier((String) evaluator.evaluate(arguments.get(1), data));
-    return new SqlIdentifier(table + "." + field);
+    String table = (String) evaluator.evaluate(arguments.get(0), data);
+    String field = (String) evaluator.evaluate(arguments.get(1), data);
+    String value = sqlRuntimeContext.quoteIdentifier(table) + "." + sqlRuntimeContext.quoteIdentifier(field);
+    return new SqlIdentifier(table, field, value);
   }
 }
