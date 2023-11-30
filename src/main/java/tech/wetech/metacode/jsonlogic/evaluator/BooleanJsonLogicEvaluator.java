@@ -32,6 +32,9 @@ public class BooleanJsonLogicEvaluator extends PrimitiveTypeJsonLogicEvaluator i
     addOperation(MultipleExpression.INSTANCE);
     addOperation(AttachExpression.INSTANCE);
     addOperation(IdentifierExpression.INSTANCE);
+
+    addOperation(InExpression.IN);
+    addOperation(InExpression.NOT_IN);
   }
 
 }

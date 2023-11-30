@@ -65,4 +65,35 @@ public class TextTests {
     assertFalse(jsonLogic.evaluateBoolean(json, Map.of("defaultvaluetest", Map.of("wenben1", "党的二十大"))));
   }
 
+  @Test
+  void testIn() throws JsonLogicException {
+    String expression1 = """
+      {
+        "in": [
+          {
+            "table_field": ["user", "tag"]
+          },
+          ["A", "B", "C", "D"]
+        ]
+      }
+      """;
+    assertTrue(
+      jsonLogic.evaluateBoolean(expression1, Map.of("user",Map.of("tag","B")))
+    );
+
+    String expression2 = """
+      {
+        "not_in": [
+          {
+            "table_field": ["user", "tag"]
+          },
+          ["A", "B", "C", "D"]
+        ]
+      }
+      """;
+    assertTrue(
+      jsonLogic.evaluateBoolean(expression2, Map.of("user",Map.of("tag","F")))
+    );
+  }
+
 }

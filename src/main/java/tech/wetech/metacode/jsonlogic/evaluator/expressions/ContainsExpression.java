@@ -5,7 +5,7 @@ import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluationException;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluator;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicExpression;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * @author cjbi
@@ -33,10 +33,10 @@ public class ContainsExpression implements JsonLogicExpression {
     if (left instanceof String leftString && right instanceof String rightString) {
       return isNot != leftString.contains(rightString);
     }
-    if (left instanceof List<?> leftList && right instanceof List<?> rightList) {
+    if (left instanceof Collection<?> leftList && right instanceof Collection<?> rightList) {
       return leftList.containsAll(rightList);
     }
-    if (left instanceof List<?> leftList && right instanceof String rightString) {
+    if (left instanceof Collection<?> leftList && right instanceof String rightString) {
       return leftList.contains(rightString);
     }
     throw new JsonLogicEvaluationException("unsupported comparison");

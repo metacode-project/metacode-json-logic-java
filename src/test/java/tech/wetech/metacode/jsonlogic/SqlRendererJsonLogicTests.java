@@ -173,4 +173,35 @@ public class SqlRendererJsonLogicTests {
     );
   }
 
+  @Test
+  void testIn() throws JsonLogicException {
+    String expression1 = """
+      {
+        "in": [
+          {
+            "table_field": ["user", "tag"]
+          },
+          ["A", "B", "C", "D"]
+        ]
+      }
+      """;
+    assertEquals("`user`.`tag` in (:user_tag_0, :user_tag_1, :user_tag_2, :user_tag_3) ",
+      jsonLogic.evaluateNamedSql(expression1, "`").sqlClause()
+    );
+
+    String expression2 = """
+      {
+        "not_in": [
+          {
+            "table_field": ["user", "tag"]
+          },
+          ["A", "B", "C", "D"]
+        ]
+      }
+      """;
+    assertEquals("`user`.`tag` not in (:user_tag_0, :user_tag_1, :user_tag_2, :user_tag_3) ",
+      jsonLogic.evaluateNamedSql(expression2, "`").sqlClause()
+    );
+  }
+
 }

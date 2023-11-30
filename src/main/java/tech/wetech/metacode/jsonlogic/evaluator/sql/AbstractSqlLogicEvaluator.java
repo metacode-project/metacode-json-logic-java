@@ -57,6 +57,9 @@ public abstract class AbstractSqlLogicEvaluator implements JsonLogicEvaluator {
     addOperation(IdentifierExpression.INSTANCE);
 
     addOperation(CurrentDatetimeSqlExpression.INSTANCE);
+
+    addOperation(InSqlExpression.IN);
+    addOperation(InSqlExpression.NOT_IN);
   }
 
   public SqlRenderResult evaluate(JsonLogicNode root, String identifierQuoteString) throws JsonLogicEvaluationException {
