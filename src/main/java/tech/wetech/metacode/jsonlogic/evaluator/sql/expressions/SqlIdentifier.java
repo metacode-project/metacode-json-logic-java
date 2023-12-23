@@ -1,23 +1,20 @@
 package tech.wetech.metacode.jsonlogic.evaluator.sql.expressions;
 
 /**
+ * sqlClause 标识符
+ *
  * @author cjbi
  */
-public class SqlIdentifier extends SqlNode {
-  private final String table;
-  private final String field;
+public class SqlIdentifier {
 
-  public SqlIdentifier(String table, String field, String value) {
-    super(value);
-    this.table = table;
-    this.field = field;
+  private final String value;
+
+  public SqlIdentifier(String value) {
+    this.value = value;
   }
 
-  public String getTable() {
-    return table;
-  }
-
-  public String getField() {
-    return field;
+  @Override
+  public String toString() {
+    return value;
   }
 }

@@ -34,7 +34,7 @@ public class ComparisonSqlExpression implements SqlExpression {
   }
 
   @Override
-  public <T extends JsonLogicEvaluator> SqlNode evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
+  public <T extends JsonLogicEvaluator> SqlIdentifier evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
     SqlRuntimeContext sqlRuntimeContext = (SqlRuntimeContext) data;
     PlaceholderHandler placeholderHandler = sqlRuntimeContext.getPlaceholderHandler();
     Object left = evaluator.evaluate(arguments.get(0), data);
@@ -46,7 +46,7 @@ public class ComparisonSqlExpression implements SqlExpression {
     sb.append(OPERATOR_MAP.getOrDefault(key, key));
     sb.append(" ");
     sb.append(handlePlace(placeholderHandler, arguments.get(1), left, right));
-    return new SqlNode(sb.toString());
+    return new SqlIdentifier(sb.toString());
   }
 
 }

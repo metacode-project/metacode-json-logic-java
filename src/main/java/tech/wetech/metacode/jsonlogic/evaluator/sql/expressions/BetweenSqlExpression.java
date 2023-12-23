@@ -18,7 +18,7 @@ public class BetweenSqlExpression implements SqlExpression {
   }
 
   @Override
-  public <T extends JsonLogicEvaluator> SqlNode evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
+  public <T extends JsonLogicEvaluator> SqlIdentifier evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
     if (arguments.size() != 3) {
       throw new JsonLogicEvaluationException("between expressions expect exactly 3 arguments");
     }
@@ -26,7 +26,7 @@ public class BetweenSqlExpression implements SqlExpression {
     Object field = evaluator.evaluate(arguments.get(0), data);
     Object left = evaluator.evaluate(arguments.get(1), data);
     Object right = evaluator.evaluate(arguments.get(2), data);
-    return new SqlNode(String.format(" %s between %s and %s", field,
+    return new SqlIdentifier(String.format(" %s between %s and %s", field,
       sqlRuntimeContext.getPlaceholderHandler().handle(field.toString(), left),
       sqlRuntimeContext.getPlaceholderHandler().handle(field.toString(), right)
     ));

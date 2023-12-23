@@ -31,7 +31,7 @@ public class LogicSqlExpression implements SqlExpression {
   }
 
   @Override
-  public <T extends JsonLogicEvaluator> SqlNode evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
+  public <T extends JsonLogicEvaluator> SqlIdentifier evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
     SqlRuntimeContext sqlRuntimeContext = (SqlRuntimeContext) data;
     if (arguments.size() < 1) {
       throw new JsonLogicEvaluationException("and operator expects at least 1 argument");
@@ -42,6 +42,6 @@ public class LogicSqlExpression implements SqlExpression {
     }
     String whereClause = list.stream()
       .collect(Collectors.joining(" " + key() + " ", " (", " )"));
-    return new SqlNode(whereClause);
+    return new SqlIdentifier(whereClause);
   }
 }

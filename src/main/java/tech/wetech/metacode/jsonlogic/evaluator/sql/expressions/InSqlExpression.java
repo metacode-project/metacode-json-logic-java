@@ -29,7 +29,7 @@ public class InSqlExpression implements SqlExpression {
   }
 
   @Override
-  public <T extends JsonLogicEvaluator> SqlNode evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
+  public <T extends JsonLogicEvaluator> SqlIdentifier evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
     SqlRuntimeContext sqlRuntimeContext = (SqlRuntimeContext) data;
     PlaceholderHandler placeholderHandler = sqlRuntimeContext.getPlaceholderHandler();
     Object left = evaluator.evaluate(arguments.get(0), data);
@@ -42,7 +42,7 @@ public class InSqlExpression implements SqlExpression {
         String s = left + (isNot ? " not in" : " in") + collection.stream()
           .map(i -> placeholderHandler.handle(left.toString(), i))
           .collect(Collectors.joining(", ", " (", ") "));
-        return new SqlNode(s);
+        return new SqlIdentifier(s);
       }
     }
     return FALSE;

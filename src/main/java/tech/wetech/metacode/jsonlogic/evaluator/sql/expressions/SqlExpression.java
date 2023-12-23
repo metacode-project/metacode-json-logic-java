@@ -15,20 +15,20 @@ import tech.wetech.metacode.jsonlogic.evaluator.sql.PlaceholderHandler;
  */
 public interface SqlExpression extends JsonLogicExpression {
 
-  SqlNode TRUE = new SqlNode("1=1");
-  SqlNode FALSE = new SqlNode("1<>1");
+  SqlIdentifier TRUE = new SqlIdentifier("1=1");
+  SqlIdentifier FALSE = new SqlIdentifier("1<>1");
 
   default boolean isTableFieldExpression(JsonLogicNode node) {
     return node instanceof JsonLogicOperation operation && operation.getOperator().equals("table_field");
   }
 
   default Object handlePlace(PlaceholderHandler placeholderHandler, JsonLogicNode valueNode, Object key, Object value) {
-    if (valueNode instanceof JsonLogicVariable || value instanceof SqlNode) {
+    if (valueNode instanceof JsonLogicVariable || value instanceof SqlIdentifier) {
       return value;
     }
     return placeholderHandler.handle(key.toString(), value);
   }
 
-  <T extends JsonLogicEvaluator> SqlNode evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException;
+  <T extends JsonLogicEvaluator> SqlIdentifier evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException;
 
 }
