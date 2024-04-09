@@ -32,7 +32,7 @@ public interface SqlExpression extends JsonLogicExpression {
         String[] items = value.toString().split("\\.");
         return sqlRuntimeContext.quoteIdentifier(items[0]) + "." + sqlRuntimeContext.quoteIdentifier(items[1]);
       }
-      return value;
+      return sqlRuntimeContext.quoteIdentifier(value.toString());
     }
     if (value instanceof SqlIdentifier) {
       return value;

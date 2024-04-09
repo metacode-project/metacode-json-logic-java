@@ -92,12 +92,18 @@ public class SqlRendererJsonLogicTests {
 
   @Test
   void testVar() throws JsonLogicException {
-    String json = """
+    String expression = """
       { "==": [{ "var": "__flow.status" }, "ACTIVE"] }
       """;
-    NamedSqlRenderResult renderResult = jsonLogic.evaluateNamedSql(json,"`");
+    NamedSqlRenderResult renderResult = jsonLogic.evaluateNamedSql(expression,"`");
     assertEquals(Map.of("__flow_status_0", "ACTIVE"), renderResult.args());
     assertEquals(" `__flow`.`status` = :__flow_status_0", renderResult.sqlClause());
+    String expression2 = """
+      { "==": [{ "var": "status" }, "ACTIVE"] }
+      """;
+    NamedSqlRenderResult renderResult2 = jsonLogic.evaluateNamedSql(expression2,"`");
+    assertEquals(Map.of("status_0", "ACTIVE"), renderResult2.args());
+    assertEquals(" `status` = :status_0", renderResult2.sqlClause());
   }
 
   @Test
