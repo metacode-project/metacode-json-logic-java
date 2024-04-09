@@ -8,6 +8,9 @@ import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluationException;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluator;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicExpression;
 import tech.wetech.metacode.jsonlogic.evaluator.sql.PlaceholderHandler;
+import tech.wetech.metacode.jsonlogic.evaluator.sql.SqlRuntimeContext;
+
+import java.util.Objects;
 
 /**
  * @author cjbi
@@ -22,8 +25,16 @@ public interface SqlExpression extends JsonLogicExpression {
     return node instanceof JsonLogicOperation operation && operation.getOperator().equals("table_field");
   }
 
-  default Object handlePlace(PlaceholderHandler placeholderHandler, JsonLogicNode valueNode, Object key, Object value) {
-    if (valueNode instanceof JsonLogicVariable || value instanceof SqlIdentifier) {
+  default Object handlePlace(SqlRuntimeContext sqlRuntimeContext, JsonLogicNode valueNode, Object key, Object value) {
+    PlaceholderHandler placeholderHandler = sqlRuntimeContext.getPlaceholderHandler();
+    if (valueNode instanceof JsonLogicVariable) {
+      if (Objects.toString(value, "").contains(".")) {
+        String[] items = value.toString().split("\\.");
+        return sqlRuntimeContext.quoteIdentifier(items[0]) + "." + sqlRuntimeContext.quoteIdentifier(items[1]);
+      }
+      return value;
+    }
+    if (value instanceof SqlIdentifier) {
       return value;
     }
     return placeholderHandler.handle(key.toString(), value);

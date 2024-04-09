@@ -95,9 +95,9 @@ public class SqlRendererJsonLogicTests {
     String json = """
       { "==": [{ "var": "__flow.status" }, "ACTIVE"] }
       """;
-    NamedSqlRenderResult renderResult = jsonLogic.evaluateNamedSql(json);
+    NamedSqlRenderResult renderResult = jsonLogic.evaluateNamedSql(json,"`");
     assertEquals(Map.of("__flow_status_0", "ACTIVE"), renderResult.args());
-    assertEquals(" __flow.status = :__flow_status_0", renderResult.sqlClause());
+    assertEquals(" `__flow`.`status` = :__flow_status_0", renderResult.sqlClause());
   }
 
   @Test
@@ -201,6 +201,21 @@ public class SqlRendererJsonLogicTests {
       """;
     assertEquals("`user`.`tag` not in (:user_tag_0, :user_tag_1, :user_tag_2, :user_tag_3) ",
       jsonLogic.evaluateNamedSql(expression2, "`").sqlClause()
+    );
+  }
+
+  @Test
+  void testContainsWhenIsArray() throws JsonLogicException {
+    String expression = """
+      {
+        "contains": [
+          { "table_field": ["banzujiaoyu", "canjiarenyuan0"] },
+          { "table_field": ["renyuanxinxiguanli0", "xingming"] }
+        ]
+      }
+      """;
+    assertEquals(" `banzujiaoyu`.`canjiarenyuan0` like concat('%', concat(`renyuanxinxiguanli0`.`xingming`,'%'))",
+      jsonLogic.evaluateNamedSql(expression, "`").sqlClause()
     );
   }
 

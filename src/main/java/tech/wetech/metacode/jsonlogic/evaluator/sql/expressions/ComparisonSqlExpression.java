@@ -3,7 +3,6 @@ package tech.wetech.metacode.jsonlogic.evaluator.sql.expressions;
 import tech.wetech.metacode.jsonlogic.ast.JsonLogicArray;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluationException;
 import tech.wetech.metacode.jsonlogic.evaluator.JsonLogicEvaluator;
-import tech.wetech.metacode.jsonlogic.evaluator.sql.PlaceholderHandler;
 import tech.wetech.metacode.jsonlogic.evaluator.sql.SqlRuntimeContext;
 
 import java.util.Map;
@@ -36,16 +35,15 @@ public class ComparisonSqlExpression implements SqlExpression {
   @Override
   public <T extends JsonLogicEvaluator> SqlIdentifier evaluate(T evaluator, JsonLogicArray arguments, Object data) throws JsonLogicEvaluationException {
     SqlRuntimeContext sqlRuntimeContext = (SqlRuntimeContext) data;
-    PlaceholderHandler placeholderHandler = sqlRuntimeContext.getPlaceholderHandler();
     Object left = evaluator.evaluate(arguments.get(0), data);
     Object right = evaluator.evaluate(arguments.get(1), data);
 
     StringBuilder sb = new StringBuilder(" ");
-    sb.append(handlePlace(placeholderHandler, arguments.get(0), right, left));
+    sb.append(handlePlace(sqlRuntimeContext, arguments.get(0), right, left));
     sb.append(" ");
     sb.append(OPERATOR_MAP.getOrDefault(key, key));
     sb.append(" ");
-    sb.append(handlePlace(placeholderHandler, arguments.get(1), left, right));
+    sb.append(handlePlace(sqlRuntimeContext, arguments.get(1), left, right));
     return new SqlIdentifier(sb.toString());
   }
 
